@@ -2,28 +2,21 @@
 
 ---
 
-<h2 id="pro">序. はじめに</a>
-#### 1.
-  **********<br>
-  **********<br>
-#### 2.
-  **********<br>
-  **********<br>
-#### 3.
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
+<h2 id="pro">序. はじめに</h2>
+ <h3>1. 40ansibleディレクトリに入る</h3>
+  $ cd ~/40ansible/<br>
+ <h3>2. examplesディレクトリにあるfortigate_create_firewall_policy.ymlプレイブックをカレントディレクトリにコピー</h3>
+  $ cp examples/fortigate_create_firewall_policy.yml .<br>
+ <h3>3. fortigate_create_firewall_policy.ymlプレイブックを確認</h3>
+  $ more fortigate_create_firewall_policy.yml<br>
+  <p>NOTE1: このプレイブックでは、fortiosconfigモジュールを使うことがわかります。Ansibleでは、モジュールを探索するためにプレイブックの置かれたディレクトリ内のlibraryディレクトリを参照します。2. でプレイブックをコピーしたのはこのためです。</p>
+  <p>NOTE2: この演習では、まずお試しライセンスで行います。お試しライセンスでは、管理アクセスがhttpのみに限られますので、https: Falseとしています。</p>
+ <h3>4. libraryディレクトリにfortiosconfigモジュールがあることを確認</h3>
+  $ ls library<br>
+ <h3>5. プレイブックを実行</h3>
+  $ ansible-playbook fortigate_create_firewall_policy.yml<br>
+ <h3>6. プレイブック実行後の設定確認</h3>
+  $ ssh admin@192.168.122.40 show firewall policy<br>
 
 <h2 id="lab0">LAB環境セットアップ</h2>
 #### 1.
