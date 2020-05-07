@@ -3,8 +3,7 @@ logo: "/images/フォー.jpg?raw=true" # your photo (or logo) here
 description: > # your text below (remove <br> elements if you don't need line breaks)
   Ansibleを使ってFortiGateを操るためのビギナー向けチュートリアルです。
   <br><br>
-  も・く・じ 
-  <br><br>
+  ▼も・く・じ▼<br>
   <a href="....">序. はじめに</a><br>
   <a href="....">0. LAB環境セットアップ</a><br>
   <a href="lab1">1. LAB1: ファイアウォールポリシーの設定</a><br>
