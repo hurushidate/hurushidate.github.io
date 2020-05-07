@@ -3,19 +3,19 @@
 ---
 
 <h2 id="pro"><font color="#2A7CB9">序. はじめに</font></h2>
- <h3>1. 40ansibleディレクトリに入る</h3>
+ <h4>1. 40ansibleディレクトリに入る</h4>
   $ cd ~/40ansible/<br>
- <h3>2. examplesディレクトリにあるfortigate_create_firewall_policy.ymlプレイブックをカレントディレクトリにコピー</h3>
+ <h4>2. examplesディレクトリにあるfortigate_create_firewall_policy.ymlプレイブックをカレントディレクトリにコピー</h4>
   $ cp examples/fortigate_create_firewall_policy.yml .<br>
- <h3>3. fortigate_create_firewall_policy.ymlプレイブックを確認</h3>
+ <h4>3. fortigate_create_firewall_policy.ymlプレイブックを確認</h4>
   $ more fortigate_create_firewall_policy.yml<br>
   <p>NOTE1: このプレイブックでは、fortiosconfigモジュールを使うことがわかります。Ansibleでは、モジュールを探索するためにプレイブックの置かれたディレクトリ内のlibraryディレクトリを参照します。2. でプレイブックをコピーしたのはこのためです。</p>
   <p>NOTE2: この演習では、まずお試しライセンスで行います。お試しライセンスでは、管理アクセスがhttpのみに限られますので、https: Falseとしています。</p>
- <h3>4. libraryディレクトリにfortiosconfigモジュールがあることを確認</h3>
+ <h4>4. libraryディレクトリにfortiosconfigモジュールがあることを確認</h4>
   $ ls library<br>
- <h3>5. プレイブックを実行</h3>
+ <h4>5. プレイブックを実行</h4>
   $ ansible-playbook fortigate_create_firewall_policy.yml<br>
- <h3>6. プレイブック実行後の設定確認</h3>
+ <h4>6. プレイブック実行後の設定確認</h4>
   $ ssh admin@192.168.122.40 show firewall policy<br>
 
 <h2 id="lab0"><font color="#2A7CB9">LAB環境セットアップ</font></h2>
@@ -48,6 +48,28 @@
   $ cp examples/fortigate_create_firewall_policy.yml .<br>
  <h4>3. fortigate_create_firewall_policy.ymlプレイブックを確認</h4>
   $ more fortigate_create_firewall_policy.yml<br>
+ <p style="font-family:"Courier New", Courier, monospace; color:#FFFFFF; background: #000000;>
+ "$ more fortigate_create_firewall_policy.yml
+- hosts: localhost
+#  strategy: debug
+  vars:
+   host: ""192.168.122.40""
+   username: ""admin""
+   password: ""admin""
+   vdom: ""root""
+  tasks:
+  - name: create firewall policy
+    fortiosconfig:
+     config: ""firewall policy""
+     action: ""set""
+     host: ""{{ host }}""
+     username: ""{{ username }}""
+     password: ""{{ password }}""
+     vdom: ""{{ vdom }}""
+     https: False
+     ssl_verify: False
+--省略--"
+ </p>
   <p>NOTE1: このプレイブックでは、fortiosconfigモジュールを使うことがわかります。Ansibleでは、モジュールを探索するためにプレイブックの置かれたディレクトリ内のlibraryディレクトリを参照します。2. でプレイブックをコピーしたのはこのためです。</p>
   <p>NOTE2: この演習では、まずお試しライセンスで行います。お試しライセンスでは、管理アクセスがhttpのみに限られますので、https: Falseとしています。</p>
  <h4>4. libraryディレクトリにfortiosconfigモジュールがあることを確認</h4>
