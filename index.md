@@ -58,15 +58,15 @@
    password: "admin"
    vdom: "root"
   tasks:
-  - name: create firewall policy</pre>
-    <font color:#FFFF00;>fortiosconfig:</font>
+  - name: create firewall policy
+    fortiosconfig:
      config: "firewall policy"
      action: "set"
      host: "{{ host }}"
      username: "{{ username }}"
      password: "{{ password }}"
      vdom: "{{ vdom }}"
-     <font color:#FFFF00;>https: False</font>
+     https: False
      ssl_verify: False
 --省略--
 </pre>
