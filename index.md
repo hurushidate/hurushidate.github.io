@@ -48,7 +48,7 @@
   $ cp examples/fortigate_create_firewall_policy.yml .<br>
  <h4>3. fortigate_create_firewall_policy.ymlプレイブックを確認</h4>
   $ more fortigate_create_firewall_policy.yml<br>
- <p style="font-family:"Courier New", Courier, monospace; color:#FFFFFF; background: #000000;>
+ <p style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
  $ more fortigate_create_firewall_policy.yml<br>
 - hosts: localhost<br>
 #  strategy: debug<br>
