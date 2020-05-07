@@ -1,7 +1,6 @@
 ## AnsibleでFortiGateを動かしてみよう
 
 ---
-
 ### <a name="pro">序. はじめに</a>
 ---
  <h4>LAB環境</h4>
@@ -15,7 +14,8 @@
   fortios 6.2.3 kvm qcow2<br>
   fortigate VMライセンス<br>
 
-
+<br><br>
+---
 ### <a name="lab0">環境セットアップ</a>
 ---
 <h4>1. ubuntuにsshアクセス</h4>
@@ -104,8 +104,9 @@ Welcome !  </pre>
  >> FortiGate-VM64-KVM (global) $    set admintimeout 480
  >> FortiGate-VM64-KVM (global) $  end</pre>
  <h4>17. Control+]でconsoleから抜ける</h4>
-<br><br>
 
+<br><br>
+---
 ### <a name="lab1">LAB1: ファイアウォールポリシーの設定</a>
 ---
 <h4>1. 40ansibleディレクトリに入る</h4>
@@ -187,7 +188,8 @@ changed: [localhost]
 PLAY RECAP *********************************************************************************************
 localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</pre>
 
-
+<br><br>
+---
 ### <a name="lab2">LAB2: スタティックルートの設定</a>
 ---
 #### 1.
@@ -211,8 +213,9 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
   **********<br>
   **********<br>
   **********<br>
-<br><br>
 
+<br><br>
+---
 ### <a name="lab3">LAB3: ライセンスのアップロード</a>
 ---
 #### 1.
@@ -239,8 +242,9 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
 <br>**********<br>
 <br>**********<br>
 <br>**********<br>
-<br><br>
 
+<br><br>
+---
 ### <a name="lab4">LAB4: スタティックURLフィルタの設定</a>
 ---
 #### 1.
@@ -264,9 +268,11 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
   **********<br>
   **********<br>
   **********<br>
-  <br><br>
+
   
 
+<br><br>
+---
 ### <a name="lab5">LAB5: Rolesの活用</a>
 ---
 #### 1.
@@ -290,9 +296,11 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
   **********<br>
   **********<br>
   **********<br>
-  <br><br>
 
 
+
+<br><br>
+---
 ### <a name="lab6">LAB6: inventoryとhttpapiの活用</a>
 ---
 #### 1.
@@ -317,7 +325,11 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
   **********<br>
   **********<br>
   
+<br><br>
+---
 ### <a name="lab7">LAB7: ファイアウォールポリシーのルックアップ</a>
+---
+
 #### 1.
   **********<br>
   **********<br>
