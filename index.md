@@ -2,7 +2,7 @@
 
 ---
 
-### <a name="pro"><font color="#9164CC">序. はじめに</font></a>
+### <a name="pro">序. はじめに</a>
  <h4>LAB環境</h4>
   ubuntu server 18.04<br>
   FortiGate-VM64-KVM v6.2.3<br>
@@ -16,7 +16,7 @@
   fortigate VMライセンス<br>
   <br>
 
-### <a name="lab0"><font color="#9164CC">LAB環境セットアップ</font></ha>
+### <a name="lab0">LAB環境セットアップ</a>
  <h4>1. ubuntuにsshアクセス</h4>
  <h4>2. 演習用ドキュメント一式をダウンロード</h4>
   $ git clone https://github.com/fortinet-solutions-cse/testbeds.git<br>
@@ -64,7 +64,7 @@ ansible-playbook 2.9.6
  1     fortigate                      running</pre>
  <h4>14. kvmコンソールでログイン</h4>
   $ virsh console fortigate<br> 
-  <p style="color:#0071CE"> Username: admin, Password: なし</p>
+  <p style="color:#9164CC"> Username: admin, Password: なし</p>
   <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">  
  $ virsh console fortigate
 Connected to domain fortigate
@@ -104,7 +104,7 @@ Welcome !  </pre>
  >> FortiGate-VM64-KVM (global) $  end</pre>
  <h4>17. Control+]でconsoleから抜ける</h4>
   
-<h2 id="lab1"><font color="#9164CC">LAB1: ファイアウォールポリシーの設定</font></h2>
+### <a name="lab1">LAB1: ファイアウォールポリシーの設定</a>
  <h4>1. 40ansibleディレクトリに入る</h4>
   $ cd ~/40ansible/<br>
  <h4>2. examplesディレクトリにあるfortigate_create_firewall_policy.ymlプレイブックをカレントディレクトリにコピー</h4>
@@ -133,8 +133,8 @@ Welcome !  </pre>
      ssl_verify: False
 --省略--
 </pre>
-  <p style="color:#0071CE">NOTE1: このプレイブックでは、fortiosconfigモジュールを使うことがわかります。Ansibleでは、モジュールを探索するためにプレイブックの置かれたディレクトリ内のlibraryディレクトリを参照します。2. でプレイブックをコピーしたのはこのためです。</p>
-  <p style="color:#0071CE">NOTE2: この演習では、まずお試しライセンスで行います。お試しライセンスでは、管理アクセスがhttpのみに限られますので、https: Falseとしています。</p>
+  <p style="color:#9164CC">解説1: このプレイブックでは、fortiosconfigモジュールを使うことがわかります。Ansibleでは、モジュールを探索するためにプレイブックの置かれたディレクトリ内のlibraryディレクトリを参照します。2. でプレイブックをコピーしたのはこのためです。</p>
+  <p style="color:#9164CC">解説2: この演習では、まずお試しライセンスで行います。お試しライセンスでは、管理アクセスがhttpのみに限られますので、https: Falseとしています。</p>
  <h4>4. libraryディレクトリにfortiosconfigモジュールがあることを確認</h4>
   $ ls library<br>
  <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
@@ -189,7 +189,8 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 </pre>
 
-<h2 id="lab2"><font color="#9164CC">LAB2: スタティックルートの設定</font></h2>
+
+### <a name="lab2">LAB2: スタティックルートの設定</a>
 #### 1.
   **********<br>
   **********<br>
@@ -212,7 +213,8 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
   **********<br>
   **********<br>
   
-<h2 id="lab3"><font color="#9164CC">LAB3: ライセンスのアップロード</font></h2>
+
+### <a name="lab3">LAB3: ライセンスのアップロード</a>
 #### 1.
 <br>**********<br>
 <br>**********<br>
@@ -238,7 +240,8 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
 <br>**********<br>
 <br>**********<br>
 
-<h2 id="lab4"><font color="#9164CC">LAB4: スタティックURLフィルタの設定<font></h2>
+
+### <a name="lab4">LAB4: スタティックURLフィルタの設定</a>
 #### 1.
   **********<br>
   **********<br>
@@ -261,7 +264,8 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
   **********<br>
   **********<br>
   
-<h2 id="lab5"><<font color="#9164CC">LAB5: Rolesの活用</font></h2>
+
+### <a name="lab5">LAB5: Rolesの活用</a>
 #### 1.
   **********<br>
   **********<br>
@@ -284,7 +288,8 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
   **********<br>
   **********<br>
 
-<h2 name="lab6"><font color="#9164CC">LAB6: inventoryとhttpapiの活用</font></h2>
+
+### <a name="lab6">LAB6: inventoryとhttpapiの活用</a>
 #### 1.
   **********<br>
   **********<br>
@@ -307,7 +312,8 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
   **********<br>
   **********<br>
   
-<h2 name="lab7"><font color="#9164CC">LAB7: ファイアウォールポリシーのルックアップ</font></h2>
+
+### <a name="lab7">LAB7: ファイアウォールポリシーのルックアップ</a>
 #### 1.
   **********<br>
   **********<br>
