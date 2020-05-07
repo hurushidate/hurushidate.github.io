@@ -21,21 +21,21 @@
  <h4>2. 演習用ドキュメント一式をダウンロード</h4>
   $ git clone https://github.com/fortinet-solutions-cse/testbeds.git<br>
   $ git clone https://github.com/fortinet-solutions-cse/40ansible.git<br>
- <h4>各種パッケージのインストール</h4>
+ <h4>3. 各種パッケージのインストール</h4>
   $ cd testbeds/<br>
   $ ./installation.sh<br>
   <p style="color:#0071CE">Generating public/private rsa key pairで対話式でいくつか聞かれるが、全部EnterでOk.</p>
- <h4>ubuntuをリブート</h4>
+ <h4>4. ubuntuをリブート</h4>
   $ sudo reboot<br>
- <h4>pip3 インストール</h4>
+ <h4>5. pip3 インストール</h4>
   $ sudo apt install -y python3-pip<br>
- <h4>Ansible 2.9.6インストール</h4>
+ <h4>6. Ansible 2.9.6インストール</h4>
   $ pip3 install ansible==2.9.6<br>
- <h4>PATHを通す</h4>
+ <h4>7. PATHを通す</h4>
   $ echo "export PATH=$PATH:/home/${USER}/.local/bin" >>.bashrc<br>
   $ source ~/.bashrc<br>
-  <h4>Ansibleバージョン確認</h4>
-  $ ansible-playbook --version<br>
+  <h4>8. Ansibleバージョン確認</h4>
+  $ ansible-playbook --version
  <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ ansible-playbook --version
 ansible-playbook 2.9.6
@@ -43,29 +43,26 @@ ansible-playbook 2.9.6
   configured module search path = ['/home/hu/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
   ansible python module location = /home/hu/.local/lib/python3.6/site-packages/ansible
   executable location = /home/hu/.local/bin/ansible-playbook
-  python version = 3.6.9 (default, Apr 18 2020, 01:56:04) [GCC 8.4.0]
-  </pre>
-  <h4>fortiosapiインストール</h4>
+  python version = 3.6.9 (default, Apr 18 2020, 01:56:04) [GCC 8.4.0]</pre>
+  <h4>9. fortiosapiインストール</h4>
   $ pip3 install fortiosapi==1.0.1<br>
-  <h4>fortiosapiのバージョン確認</h4>
-  $ pip3 freeze | grep fortiosapi<br>
+  <h4>10. fortiosapiのバージョン確認</h4>
+  $ pip3 freeze | grep fortiosapi
  <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
   $ pip3 freeze | grep fortiosapi
-  fortiosapi==1.0.1
-  </pre>
-  <h4>kvm(fortios_623.qcow2)をホームディレクトリにアップロード</h4>
-  <h4>fortigate vm起動</h4>
+  fortiosapi==1.0.1</pre>
+  <h4>11. kvm(fortios_623.qcow2)をホームディレクトリにアップロード</h4>
+  <h4>12. fortigate vm起動</h4>
   cd testbeds/fortigate/<br>
   ./start_fgt621.sh ../../fortios_621.qcow2<br>
-  <h4>vm起動確認</h4>
-  $ virsh list<br>
+  <h4>13. vm起動確認</h4>
+  $ virsh list
  <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">  
   $ virsh list
  Id    Name                           State
 ----------------------------------------------------
- 1     fortigate                      running
- </pre>
- <h4>kvmコンソールでログイン</h4>
+ 1     fortigate                      running</pre>
+ <h4>14. kvmコンソールでログイン</h4>
   $ virsh console fortigate<br> 
   <p style="color:#0071CE"> Username: admin, Password: なし</p>
   <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">  
@@ -73,17 +70,15 @@ ansible-playbook 2.9.6
 Connected to domain fortigate
 Escape character is ^]
 FortiGate-VM64-KVM login: admin
-Password:
- </pre> 
- <h4>New Passwordで`admin`を設定H/h4>
+Password: </pre> 
+ <h4>15. New Passwordで`admin`を設定H/h4>
   <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">  
   You are forced to change your password, please input a new password.
 New Password:*****
 Confirm Password:*****
-Welcome !
-  </pre>
- <h4>cloudinitで流しんだコンフィグ情報を確認</h4>
-  $ diagnoze debug cloudinit show<br>
+Welcome !  </pre>
+ <h4>16. cloudinitで流しんだコンフィグ情報を確認</h4>
+  $ diagnoze debug cloudinit show
  <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">   
  # diagnose debug cloudinit show
  >> FortiGate-VM64-KVM $  config system interface
@@ -106,9 +101,8 @@ Welcome !
  >> FortiGate-VM64-KVM (static) $  end
  >> FortiGate-VM64-KVM $  config system global
  >> FortiGate-VM64-KVM (global) $    set admintimeout 480
- >> FortiGate-VM64-KVM (global) $  end
- </pre>
- <h4>Control+]でconsoleから抜ける</h4>
+ >> FortiGate-VM64-KVM (global) $  end</pre>
+ <h4>17. Control+]でconsoleから抜ける</h4>
   
 <h2 id="lab1"><font color="#9164CC">LAB1: ファイアウォールポリシーの設定</font></h2>
  <h4>1. 40ansibleディレクトリに入る</h4>
