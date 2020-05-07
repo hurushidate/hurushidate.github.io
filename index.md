@@ -2,19 +2,15 @@
 
 ---
 
-<a name="pro">### 序. はじめに</a>
-
-[Project 1 Title](/sample_page)
-<img src="images/dummy_thumbnail.jpg?raw=true"/>
-
----
-[Project 2 Title](/pdf/sample_presentation.pdf)
-<img src="images/dummy_thumbnail.jpg?raw=true"/>
-
----
-[Project 3 Title](http://example.com/)
-<img src="images/dummy_thumbnail.jpg?raw=true"/>
-
+### <a name="#pro">序. はじめに</a><br>
+### <a name="#lab0">0. LAB環境セットアップ</a><br>
+### <a name="#lab1">1. LAB1: ファイアウォールポリシーの設定</a><br>
+### <a name="#lab2">2. LAB2: スタティックルートの設定</a><br>
+### <a name="#lab3">3. LAB3: ライセンスのアップロード</a><br>
+### <a name="#lab4">4. LAB4: スタティックURLフィルタの設定</a><br>
+### <a name="#lab5">5. LAB5: Rolesの活用</a><br>
+### <a name="#lab6">6. LAB6: Inventoryとhttpapiモジュールの活用</a><br>
+### <a name="#lab7">7. LAB7: ファイアウォールポリシーのルックアップ</a><br>
 ---
 
 ### Category Name 2
