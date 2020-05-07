@@ -9,12 +9,11 @@
   pip3 (python3)<br>
   Ansible 2.9.6<br>
   fortiosapi 1.0.1<br>
-  <br>
  <h4>用意するもの</h4>
   ubuntu server 18.04<br>
   fortios 6.2.3 kvm qcow2<br>
   fortigate VMライセンス<br>
-  <br>
+
 
 ### <a name="lab0">LAB環境セットアップ</a>
  <h4>1. ubuntuにsshアクセス</h4>
@@ -24,7 +23,7 @@
  <h4>3. 各種パッケージのインストール</h4>
   $ cd testbeds/<br>
   $ ./installation.sh<br>
-  <p style="color:#0071CE">Generating public/private rsa key pairで対話式でいくつか聞かれるが、全部EnterでOk.</p>
+  <p style="color:#9164CC">Generating public/private rsa key pairで対話式でいくつか聞かれるが、全部EnterでOk.</p>
  <h4>4. ubuntuをリブート</h4>
   $ sudo reboot<br>
  <h4>5. pip3 インストール</h4>
@@ -110,7 +109,7 @@ Welcome !  </pre>
  <h4>2. examplesディレクトリにあるfortigate_create_firewall_policy.ymlプレイブックをカレントディレクトリにコピー</h4>
   $ cp examples/fortigate_create_firewall_policy.yml .<br>
  <h4>3. fortigate_create_firewall_policy.ymlプレイブックを確認</h4>
-  $ more fortigate_create_firewall_policy.yml<br>
+  $ more fortigate_create_firewall_policy.yml
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
  $ more fortigate_create_firewall_policy.yml
 - hosts: localhost
@@ -131,27 +130,24 @@ Welcome !  </pre>
      vdom: "{{ vdom }}"
      https: False
      ssl_verify: False
---省略--
-</pre>
+--省略--</pre>
   <p style="color:#9164CC">解説1: このプレイブックでは、fortiosconfigモジュールを使うことがわかります。Ansibleでは、モジュールを探索するためにプレイブックの置かれたディレクトリ内のlibraryディレクトリを参照します。2. でプレイブックをコピーしたのはこのためです。</p>
   <p style="color:#9164CC">解説2: この演習では、まずお試しライセンスで行います。お試しライセンスでは、管理アクセスがhttpのみに限られますので、https: Falseとしています。</p>
  <h4>4. libraryディレクトリにfortiosconfigモジュールがあることを確認</h4>
-  $ ls library<br>
+  $ ls library
  <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ ls library
 forticare_download_license.py   forticare_get_assets.py        forticare_register_units.py  fortimailconfig.py
-forticare_get_asset_details.py  forticare_register_license.py  fortimail.py                 fortiosconfig.py
-</pre>
+forticare_get_asset_details.py  forticare_register_license.py  fortimail.py                 fortiosconfig.py</pre>
  <h4>5. プレイブック実行前の、設定確認</h4>
-  $ ansible-playbook fortigate_create_firewall_policy.yml<br>
+  $ ansible-playbook fortigate_create_firewall_policy.yml
  <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ ssh admin@192.168.122.40 show firewall policy
 admin@192.168.122.40's password:
 FortiGate-VM64-KVM # config firewall policy
-end
-</pre>
+end</pre>
  <h4>6. プレイブック実行</h4>
- $ ansible-playbook fortigate_create_firewall_policy.yml<br>
+ $ ansible-playbook fortigate_create_firewall_policy.yml
  <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
  $ ansible-playbook fortigate_create_firewall_policy.yml
 [WARNING]: No inventory was parsed, only implicit localhost is available
@@ -167,10 +163,9 @@ TASK [create firewall policy] **************************************************
 changed: [localhost]
 
 PLAY RECAP *********************************************************************************************
-localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-</pre>
+localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</pre>
  <h4>7. プレイブック実行後の設定確認</h4>
-  $ ssh admin@192.168.122.40 show firewall policy<br>
+  $ ssh admin@192.168.122.40 show firewall policy
  <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ ansible-playbook fortigate_create_firewall_policy.yml
 [WARNING]: No inventory was parsed, only implicit localhost is available
@@ -186,8 +181,7 @@ TASK [create firewall policy] **************************************************
 changed: [localhost]
 
 PLAY RECAP *********************************************************************************************
-localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-</pre>
+localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</pre>
 
 
 ### <a name="lab2">LAB2: スタティックルートの設定</a>
