@@ -3,6 +3,7 @@
 ---
 
 ### <a name="pro">序. はじめに</a>
+---
  <h4>LAB環境</h4>
   ubuntu server 18.04<br>
   FortiGate-VM64-KVM v6.2.3<br>
@@ -15,8 +16,9 @@
   fortigate VMライセンス<br>
 
 
-### <a name="lab0">LAB環境セットアップ</a>
- <h4>1. ubuntuにsshアクセス</h4>
+### <a name="lab0">環境セットアップ</a>
+---
+<h4>1. ubuntuにsshアクセス</h4>
  <h4>2. 演習用ドキュメント一式をダウンロード</h4>
   $ git clone https://github.com/fortinet-solutions-cse/testbeds.git<br>
   $ git clone https://github.com/fortinet-solutions-cse/40ansible.git<br>
@@ -102,9 +104,11 @@ Welcome !  </pre>
  >> FortiGate-VM64-KVM (global) $    set admintimeout 480
  >> FortiGate-VM64-KVM (global) $  end</pre>
  <h4>17. Control+]でconsoleから抜ける</h4>
- 
+<br><br>
+
 ### <a name="lab1">LAB1: ファイアウォールポリシーの設定</a>
- <h4>1. 40ansibleディレクトリに入る</h4>
+---
+<h4>1. 40ansibleディレクトリに入る</h4>
   $ cd ~/40ansible/<br>
  <h4>2. examplesディレクトリにあるfortigate_create_firewall_policy.ymlプレイブックをカレントディレクトリにコピー</h4>
   $ cp examples/fortigate_create_firewall_policy.yml .<br>
@@ -185,6 +189,7 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
 
 
 ### <a name="lab2">LAB2: スタティックルートの設定</a>
+---
 #### 1.
   **********<br>
   **********<br>
@@ -206,8 +211,10 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
   **********<br>
   **********<br>
   **********<br>
+<br><br>
 
 ### <a name="lab3">LAB3: ライセンスのアップロード</a>
+---
 #### 1.
 <br>**********<br>
 <br>**********<br>
@@ -232,8 +239,10 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
 <br>**********<br>
 <br>**********<br>
 <br>**********<br>
+<br><br>
 
 ### <a name="lab4">LAB4: スタティックURLフィルタの設定</a>
+---
 #### 1.
   **********<br>
   **********<br>
@@ -255,9 +264,11 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
   **********<br>
   **********<br>
   **********<br>
+  <br><br>
   
 
 ### <a name="lab5">LAB5: Rolesの活用</a>
+---
 #### 1.
   **********<br>
   **********<br>
@@ -279,9 +290,11 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
   **********<br>
   **********<br>
   **********<br>
+  <br><br>
 
 
 ### <a name="lab6">LAB6: inventoryとhttpapiの活用</a>
+---
 #### 1.
   **********<br>
   **********<br>
