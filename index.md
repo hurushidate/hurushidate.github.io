@@ -102,7 +102,7 @@ Welcome !  </pre>
  >> FortiGate-VM64-KVM (global) $    set admintimeout 480
  >> FortiGate-VM64-KVM (global) $  end</pre>
  <h4>17. Control+]でconsoleから抜ける</h4>
-  
+ 
 ### <a name="lab1">LAB1: ファイアウォールポリシーの設定</a>
  <h4>1. 40ansibleディレクトリに入る</h4>
   $ cd ~/40ansible/<br>
@@ -206,7 +206,6 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
   **********<br>
   **********<br>
   **********<br>
-  
 
 ### <a name="lab3">LAB3: ライセンスのアップロード</a>
 #### 1.
@@ -233,7 +232,6 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
 <br>**********<br>
 <br>**********<br>
 <br>**********<br>
-
 
 ### <a name="lab4">LAB4: スタティックURLフィルタの設定</a>
 #### 1.
@@ -306,7 +304,6 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
   **********<br>
   **********<br>
   
-
 ### <a name="lab7">LAB7: ファイアウォールポリシーのルックアップ</a>
 #### 1.
   **********<br>
