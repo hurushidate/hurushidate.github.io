@@ -2,7 +2,7 @@
 
 ---
 
-<h2 id="pro"><font color="#9164CC">序. はじめに</font></h2>
+### <a name="pro"><font color="#9164CC">序. はじめに</font></a>
  <h4>LAB環境</h4>
   ubuntu server 18.04<br>
   FortiGate-VM64-KVM v6.2.3<br>
@@ -13,10 +13,10 @@
  <h4>用意するもの</h4>
   ubuntu server 18.04<br>
   fortios 6.2.3 kvm qcow2<br>
-  fortigate vmlicense<br>
+  fortigate VMライセンス<br>
   <br>
 
-<h2 id="lab0"><font color="#9164CC">LAB環境セットアップ</font></h2>
+### <a name="lab0"><font color="#9164CC">LAB環境セットアップ</font></ha>
  <h4>1. ubuntuにsshアクセス</h4>
  <h4>2. 演習用ドキュメント一式をダウンロード</h4>
   $ git clone https://github.com/fortinet-solutions-cse/testbeds.git<br>
