@@ -1,11 +1,18 @@
-title: FortiGate x Ansible # website title
+title: FortiGate を Ansible で。　 # website title
 logo: "/images/フォー.jpg?raw=true" # your photo (or logo) here
 description: > # your text below (remove <br> elements if you don't need line breaks)
-  First description 
+  Ansibleを使ってFortiGateを操るためのビギナー向けチュートリアルです。
   <br><br>
-  Second description 
+  も・く・じ 
   <br><br>
-  <a href="https://www.linkedin.com/in/example/">View My LinkedIn Profile</a> 
+  <a href="....">序: はじめに</a> 
+  <a href="....">0-LAB環境セットアップ</a>
+  <a href="lab1">1. LAB1: ファイアウォールポリシーの設定</a>
+  <a href="lab2">2. LAB2: スタティックルートの設定</a>
+  <a href="lab3">3. LAB3: ライセンスのアップロード</a>
+  <a href="lab4">4. LAB4: スタティックURLフィルタの設定</a>
+  <a href="lab5">5. LAB5: Rolesの活用</a>
+  <a href="lab6">6. LAB6: Inventoryとhttpapiモジュールの活用</a>
+  <a href="lab7">7. LAB7: ファイアウォールポリシーのルックアップ</a>  
   
 theme: jekyll-theme-minimal
-google_analytics: UA-000000-0 # your Google Analytics tracking ID here
