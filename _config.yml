@@ -1,5 +1,5 @@
 title: FortiGate を Ansible で。　 # website title
-logo: "/images/フォー.jpg?raw=true" # your photo (or logo) here
+logo: "/images/fo_log.jpg?raw=true" # your photo (or logo) here
 description: > # your text below (remove <br> elements if you don't need line breaks)
   Ansibleを使ってFortiGateを操るためのビギナー向けチュートリアルです。
   <br><br>
