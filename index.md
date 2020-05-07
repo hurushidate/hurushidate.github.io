@@ -2,7 +2,7 @@
 
 ---
 
-<h2 id="pro"><font color="#2A7CB9">序. はじめに</font></h2>
+<h2 id="pro"><font color="#9164CC">序. はじめに</font></h2>
  <h4>1. 40ansibleディレクトリに入る</h4>
   $ cd ~/40ansible/<br>
  <h4>2. examplesディレクトリにあるfortigate_create_firewall_policy.ymlプレイブックをカレントディレクトリにコピー</h4>
@@ -18,7 +18,7 @@
  <h4>6. プレイブック実行後の設定確認</h4>
   $ ssh admin@192.168.122.40 show firewall policy<br>
 
-<h2 id="lab0"><font color="#2A7CB9">LAB環境セットアップ</font></h2>
+<h2 id="lab0"><font color="#9164CC">LAB環境セットアップ</font></h2>
 #### 1.
   **********<br>
   **********<br>
@@ -41,7 +41,7 @@
   **********<br>
   **********<br>
   
-<h2 id="lab1"><font color="#2A7CB9">LAB1: ファイアウォールポリシーの設定</font></h2>
+<h2 id="lab1"><font color="#9164CC">LAB1: ファイアウォールポリシーの設定</font></h2>
  <h4>1. 40ansibleディレクトリに入る</h4>
   $ cd ~/40ansible/<br>
  <h4>2. examplesディレクトリにあるfortigate_create_firewall_policy.ymlプレイブックをカレントディレクトリにコピー</h4>
@@ -70,8 +70,8 @@
      ssl_verify: False
 --省略--
 </pre>
-  <p>NOTE1: このプレイブックでは、fortiosconfigモジュールを使うことがわかります。Ansibleでは、モジュールを探索するためにプレイブックの置かれたディレクトリ内のlibraryディレクトリを参照します。2. でプレイブックをコピーしたのはこのためです。</p>
-  <p>NOTE2: この演習では、まずお試しライセンスで行います。お試しライセンスでは、管理アクセスがhttpのみに限られますので、https: Falseとしています。</p>
+  <p style="color:0071CE">NOTE1: このプレイブックでは、fortiosconfigモジュールを使うことがわかります。Ansibleでは、モジュールを探索するためにプレイブックの置かれたディレクトリ内のlibraryディレクトリを参照します。2. でプレイブックをコピーしたのはこのためです。</p>
+  <p style="color:0071CE">NOTE2: この演習では、まずお試しライセンスで行います。お試しライセンスでは、管理アクセスがhttpのみに限られますので、https: Falseとしています。</p>
  <h4>4. libraryディレクトリにfortiosconfigモジュールがあることを確認</h4>
   $ ls library<br>
  <h4>5. プレイブックを実行</h4>
@@ -80,7 +80,7 @@
   $ ssh admin@192.168.122.40 show firewall policy<br>
   
   
-<h2 id="lab2"><font color="#2A7CB9">LAB2: スタティックルートの設定</font></h2>
+<h2 id="lab2"><font color="#9164CC">LAB2: スタティックルートの設定</font></h2>
 #### 1.
   **********<br>
   **********<br>
@@ -103,7 +103,7 @@
   **********<br>
   **********<br>
   
-<h2 id="lab3"><font color="#2A7CB9">LAB3: ライセンスのアップロード</font></h2>
+<h2 id="lab3"><font color="#9164CC">LAB3: ライセンスのアップロード</font></h2>
 #### 1.
 <br>**********<br>
 <br>**********<br>
@@ -129,7 +129,7 @@
 <br>**********<br>
 <br>**********<br>
 
-<h2 id="lab4"><font color="#2A7CB9">LAB4: スタティックURLフィルタの設定<font></h2>
+<h2 id="lab4"><font color="#9164CC">LAB4: スタティックURLフィルタの設定<font></h2>
 #### 1.
   **********<br>
   **********<br>
@@ -152,7 +152,7 @@
   **********<br>
   **********<br>
   
-<h2 id="lab5"><<font color="#2A7CB9">LAB5: Rolesの活用</font></h2>
+<h2 id="lab5"><<font color="#9164CC">LAB5: Rolesの活用</font></h2>
 #### 1.
   **********<br>
   **********<br>
@@ -175,7 +175,7 @@
   **********<br>
   **********<br>
 
-<h2 name="lab6"><font color="#2A7CB9">LAB6: inventoryとhttpapiの活用</font></h2>
+<h2 name="lab6"><font color="#9164CC">LAB6: inventoryとhttpapiの活用</font></h2>
 #### 1.
   **********<br>
   **********<br>
@@ -198,7 +198,7 @@
   **********<br>
   **********<br>
   
-<h2 name="lab7"><font color="#2A7CB9">LAB7: ファイアウォールポリシーのルックアップ</font></h2>
+<h2 name="lab7"><font color="#9164CC">LAB7: ファイアウォールポリシーのルックアップ</font></h2>
 #### 1.
   **********<br>
   **********<br>
