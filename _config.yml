@@ -5,8 +5,8 @@ description: > # your text below (remove <br> elements if you don't need line br
   <br><br>
   も・く・じ 
   <br><br>
-  <a href="....">序: はじめに</a><br>
-  <a href="....">0-LAB環境セットアップ</a><br>
+  <a href="....">序. はじめに</a><br>
+  <a href="....">0. LAB環境セットアップ</a><br>
   <a href="lab1">1. LAB1: ファイアウォールポリシーの設定</a><br>
   <a href="lab2">2. LAB2: スタティックルートの設定</a><br>
   <a href="lab3">3. LAB3: ライセンスのアップロード</a><br>
