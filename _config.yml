@@ -5,13 +5,13 @@ description: > # your text below (remove <br> elements if you don't need line br
   <br><br>
   ▼も・く・じ▼<br>
   <a href="#pro">序. はじめに</a><br>
-  <a href="#lab0">0. LAB環境セットアップ</a><br>
-  <a href="#lab1">1. LAB1: ファイアウォールポリシーの設定</a><br>
-  <a href="#lab2">2. LAB2: スタティックルートの設定</a><br>
-  <a href="#lab3">3. LAB3: ライセンスのアップロード</a><br>
-  <a href="#lab4">4. LAB4: スタティックURLフィルタの設定</a><br>
-  <a href="#lab5">5. LAB5: Rolesの活用</a><br>
-  <a href="#lab6">6. LAB6: Inventoryとhttpapiモジュールの活用</a><br>
-  <a href="#lab7">7. LAB7: ファイアウォールポリシーのルックアップ</a><br>
+  <a href="#lab0">環境セットアップ</a><br>
+  <a href="#lab1">LAB1: ファイアウォールポリシーの設定</a><br>
+  <a href="#lab2">LAB2: スタティックルートの設定</a><br>
+  <a href="#lab3">LAB3: ライセンスのアップロード</a><br>
+  <a href="#lab4">LAB4: スタティックURLフィルタの設定</a><br>
+  <a href="#lab5">LAB5: Rolesの活用</a><br>
+  <a href="#lab6">LAB6: Inventoryとhttpapiモジュールの活用</a><br>
+  <a href="#lab7">LAB7: ファイアウォールポリシーのルックアップ</a><br>
   
 theme: jekyll-theme-minimal
