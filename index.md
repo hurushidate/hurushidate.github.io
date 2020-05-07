@@ -66,7 +66,7 @@
      username: "{{ username }}"
      password: "{{ password }}"
      vdom: "{{ vdom }}"</pre>
- <pre style="font-family:Courier New, Courier, monospace; color:#FFFF00; background: #000000;">https: False</font>
+ <pre style="font-family:Courier New, Courier, monospace; color:#FFFF00; background: #000000;">https: False</font></pre>
  <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">     ssl_verify: False
 --省略--</pre>
   <p>NOTE1: このプレイブックでは、fortiosconfigモジュールを使うことがわかります。Ansibleでは、モジュールを探索するためにプレイブックの置かれたディレクトリ内のlibraryディレクトリを参照します。2. でプレイブックをコピーしたのはこのためです。</p>
