@@ -48,10 +48,10 @@
   $ cp examples/fortigate_create_firewall_policy.yml .<br>
  <h4>3. fortigate_create_firewall_policy.ymlプレイブックを確認</h4>
   $ more fortigate_create_firewall_policy.yml<br>
- <p style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+ <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
  $ more fortigate_create_firewall_policy.yml<br>
 - hosts: localhost<br>
-#  strategy: debug<br>
+# strategy: debug<br>
   vars:<br>
    host: ""192.168.122.40"<br>
    username: "admin"<br>
@@ -69,7 +69,7 @@
      https: False<br>
      ssl_verify: False<br>
 --省略--<br>
- </p>
+ </pre>
   <p>NOTE1: このプレイブックでは、fortiosconfigモジュールを使うことがわかります。Ansibleでは、モジュールを探索するためにプレイブックの置かれたディレクトリ内のlibraryディレクトリを参照します。2. でプレイブックをコピーしたのはこのためです。</p>
   <p>NOTE2: この演習では、まずお試しライセンスで行います。お試しライセンスでは、管理アクセスがhttpのみに限られますので、https: Falseとしています。</p>
  <h4>4. libraryディレクトリにfortiosconfigモジュールがあることを確認</h4>
