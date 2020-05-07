@@ -192,27 +192,113 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
 ---
 ### <a name="lab2">LAB2: スタティックルートの設定</a>
 ---
-#### 1.
-  **********<br>
-  **********<br>
-#### 2.
-  **********<br>
-  **********<br>
-#### 3.
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
+<h4>1. library内のfortiosconfigモジュールでCONFIG_CALLSを検索</h4>
+	$ more library/fortiosconfig.py<br>
+	<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+	"~/40ansible$ more library/fortiosconfig.py
+--省略--
+CONFIG_CALLS = [
+    'alertemail setting',
+    'antivirus heuristic',
+    'antivirus profile',
+    'antivirus quarantine',
+…
+    'router static',
+    'router static6',
+    'spamfilter bwl',
+--省略--"
+	</pre>
+	<p style="color:#9164CC">CONFIG_CALLSにある設定項目がfortiosconfigモジュールで設定可能です。</p>
+<h4>2. REST APIスキーマの確認</h4>
+<h5>2.1	APIログインのためのクッキー情報取得</h5>
+	$ curl http://192.168.122.40/logincheck -H 'Cache-Control: cache' -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=admin&secretkey=admin&ajax=1' -c cookies<br>
+<h5>2.2	スキーマの取得</h5>
+	$ curl -b cookies -X GET 'http://192.168.122.40/api/v2/cmdb/router/static?action=schema'<br>
+	<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+	"$ curl -b cookies -X GET 'http://192.168.122.40/api/v2/cmdb/router/static?action=schema'
+{
+  ""http_method"":""GET"",
+  ""revision"":""20b4c7ed3916791a3efd6e596513f42c"",
+  ""results"":{
+    ""name"":""static"",
+    ""category"":""table"",
+    ""help"":""Configure IPv4 static routing tables."",
+    ""mkey"":""seq-num"",
+    ""mkey_type"":""integer"",
+    ""children"":{
+      ""seq-num"":{
+        ...
+      },
+      ""status"":{
+      },
+      ""dst"":{
+      },
+      ""src"":{
+      },
+...省略..."
+</pre>
+<p style="color:#9164CC">
+	master-key(mkye)がseq-numで、children配下に設定アトリビュートとして、seq-num, status, dst, src, などがあることがわかります。プレイブックを作成するときに、これらのアトリビュートを使用します。</p>
+<h4>3. Lab1で使ったプレイブックをコピーし、スタティックルート設定用のプレイブック(fortigate_modify_router_static.yml)を作成</h4>
+	cp fortigate_create_firewall_policy.yml fortigate_modify_router_static.yml<br>
+<h4>4. プレイブックを編集</h4>
+	$ sudo vi fortigate_modify_router_static.yml<br>
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+	" - hosts: localhost
+#  strategy: debug
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: "admin"
+   vdom: "root"
+  tasks:
+  - name: create firewall policy
+    fortiosconfig:
+     config: "router static"
+     action: "set"
+     host: "{{ host }}"
+     username: "{{ username }}"
+     password: "{{ password }}"
+     vdom: "{{ vdom }}"
+     https: False
+     ssl_verify: False
+     config_parameters:
+       seq-num: ""5""
+       dst: "192.168.130.0/23"
+       gateway: "192.168.130.1"
+       device: "port1"
+	   </pre>
+<h4>5. プレイブック実行前の確認</h4>
+	$ ssh admin@192.168.122.40 show router static<br>
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ ssh admin@192.168.122.40 show router static
+admin@192.168.122.40's password:
+FortiGate-VM64-KVM # config router static
+    edit 2
+        set gateway 192.168.122.1
+        set device "port1"
+    next
+end
+</pre>
+<h4>6. プレイブック実行</h4>
+	$ ansible-playbook fortigate_modify_router_static.yml<br>
+<h4>7. プレイブック実行前の確認</h4>
+	$ ssh admin@192.168.122.40 show router static<br>
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ ssh admin@192.168.122.40 show router static
+admin@192.168.122.40's password:
+FortiGate-VM64-KVM # config router static
+    edit 2
+        set gateway 192.168.122.1
+        set device "port1"
+    next
+    edit 5
+        set dst 192.168.130.0 255.255.254.0
+        set gateway 192.168.130.1
+        set device "port1"
+    next
+end
+</pre>
 
 <br><br>
 ---
