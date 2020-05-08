@@ -13,4 +13,6 @@ description: > # your text below (remove <br> elements if you don't need line br
   <a href="#lab5">LAB5: Rolesの活用</a><br>
   <a href="#lab6">LAB6: Inventoryとhttpapiプラグインの活用</a><br>
   <a href="#lab7">LAB7: ファイアウォールポリシーのルックアップ</a><br>
+  
  
+theme: jekyll-theme-minimal
