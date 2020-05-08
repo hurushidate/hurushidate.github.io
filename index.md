@@ -514,28 +514,163 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
 ---
 ### <a name="lab4">LAB4: スタティックURLフィルタの設定</a>
 ---
-#### 1.
-  **********<br>
-  **********<br>
-#### 2.
-  **********<br>
-  **********<br>
-#### 3.
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
+LAB1からLAB3で使用したfortiosconfigモジュールは、Ansible公式のモジュールではありません。
+このLabでは、Ansibleコアにあるモジュールを使って設定します。
+fortiosconfigモジュールとは異なり、Ansible公式モジュールは設定項目ごとにわかれています。
+また、パラメータ説明や使用例などのドキュメントも整備されていて、FortiGate REST APIのスキーマを確認しなくてもプレイブックを書けるようになっています。
 
+<h4>1. Ansible公式モジュールの確認</h4>
+<h5>1-1	Ansible公式モジュールの格納場所を確認</h5>
+	ansible-playbook --version
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ ansible-playbook --version
+ansible-playbook 2.9.6
+  config file = None
+  configured module search path = ['/home/hu/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /home/hu/.local/lib/python3.6/site-packages/ansible
+  executable location = /home/hu/.local/bin/ansible-playbook
+  python version = 3.6.9 (default, Apr 18 2020, 01:56:04) [GCC 8.4.0]
+</pre>
+  
+<h5>1-2	fortios用のモジュールを確認</h5>
+	ls /home/hu/.local/lib/python3.6/site-packages/ansible/modules/network/fortios/
+今回は、この中のfortios_webfilter_urlfilter.pyを使います。
+
+<h5>1-3	fortios_webfilter_urlfilter.pyのDOCUMENTATION部分を確認</h5>
+	more /home/hu/.local/lib/python3.6/site-packages/ansible/modules/network/fortios/fortios_webfilter_urlfilter.py
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ more /home/hu/.local/lib/python3.6/site-packages/ansible/modules/network/fortios/fortios_webfilter_urlfilter.py
+...省略...
+DOCUMENTATION = '''
+---
+module: fortios_webfilter_urlfilter
+short_description: Configure URL filter lists in Fortinet's FortiOS and FortiGate.
+description:
+    - This module is able to configure a FortiGate or FortiOS (FOS) device by allowing the user to set and modify webfilter feature and urlfilter category. Examples include all parameters and values need to be adjusted to datasources before usage. Tested with FOS v6.0.5
+version_added: "2.8"
+notes:
+    - Requires fortiosapi library developed by Fortinet
+    - Run as a local_action in your playbook
+requirements:
+    - fortiosapi>=0.9.8
+options:
+    host:
+        description:
+            - FortiOS or FortiGate IP address.
+        type: str
+        required: false
+...省略...
+'''
+</pre>
+
+<h5>1-4	Ansible公式ページで確認</h5>
+	https://docs.ansible.com/ansible/latest/modules/fortios_webfilter_urlfilter_module.html#fortios-webfilter-urlfilter-module
+モジュールのソースコードは公式ページでも確認可能です。
+
+<h4>2. プレイブックの内容を確認</h4>
+	cd ~/40ansible/examples
+<br>
+	more fortigate_webfilter_add_url.yml
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ more fortigate_webfilter_add_url.yml
+...省略...
+  tasks:
+  - name: Configure url to be filtered by fortigate
+    fortios_webfilter_urlfilter:
+      host:  "{{  host }}"
+      username: "{{  username}}"
+      password: "{{ password }}"
+      vdom:  "{{  vdom }}"
+      https: False
+      ssl_verify: False
+      webfilter_urlfilter:
+        state: "present"
+        id: "1"
+        name: "default"
+        one_arm_ips_urlfilter: "disable"
+        ip_addr_block: "disable"
+        entries:
+          - id: "1"
+            url: "www.test1.com"
+            type: "simple"
+...省略...
+</pre>
+
+<h4>3. プレイブック実行前の設定確認</h4>
+	ssh admin@192.168.122.40  show webfilter urlfilter
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ ssh admin@192.168.122.40  show webfilter urlfilter
+admin@192.168.122.40's password:
+FortiGate-VM64-KVM # config webfilter urlfilter
+end
+</pre>
+
+<h4>4. プレイブック実行</h4>
+	ansible-playbook fortigate_webfilter_add_url.yml
+
+<h4>プレイブック実行後の設定確認</h4>
+	ssh admin@192.168.122.40  show webfilter urlfilter
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ ssh admin@192.168.122.40  show webfilter urlfilter
+admin@192.168.122.40's password:
+FortiGate-VM64-KVM # config webfilter urlfilter
+    edit 1
+        set name "default"
+        set comment "mycomment"
+        config entries
+            edit 1
+                set url "www.test1.com"
+                set exempt pass
+            next
+            edit 2
+                set url "www.test2.com"
+                set exempt pass
+            next
+        end
+    next
+end
+</pre>
+
+<h4>6. 設定を削除するためのプレイブックを作成</h4>
+<h5>6-1	スタティックURLフィルタ設定用のプレイブックをコピー</h5>
+	cp fortigate_webfilter_add_url.yml fortigate_webfilter_remove_url.yml
+
+<h5>6-2	設定削除用プレイブックを編集</h5>
+	sudo vi fortigate_webfilter_remove_url.yml
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$sudo vi fortigate_webfilter_remove_url.yml
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: "admin"
+   vdom: "root"
+  tasks:
+  - name: Configure url to be filtered by fortigate
+    fortios_webfilter_urlfilter:
+      host:  "{{  host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{  vdom }}"
+      https: False
+      ssl_verify: False
+      webfilter_urlfilter:
+        state: "absent"
+        id: "1"
+</pre>
+<p style="color:#9164CC">state: "absent"に変更し、id依り下のアトリビュート削除</p>
+
+<h4>7. プレイブック実行</h4>
+	ansible-playbook fortigate_webfilter_remove_url.yml
+
+<h4>8. プレイブック実行後の設定確認</h4>
+	ssh admin@192.168.122.40  show webfilter urlfilter
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ ssh admin@192.168.122.40  show webfilter urlfilter
+admin@192.168.122.40's password:
+FortiGate-VM64-KVM # config webfilter urlfilter
+end
+</pre>
   
 
 <br><br>
