@@ -24,8 +24,6 @@
 
 <h4>2. 演習用ドキュメント一式をダウンロード</h4>
 	git clone https://github.com/fortinet-solutions-cse/testbeds.git
-	
-	
 	git clone https://github.com/fortinet-solutions-cse/40ansible.git
 
 <h4>3. 各種パッケージのインストール</h4>
@@ -44,8 +42,6 @@
 
 <h4>7. PATHを通す</h4>
 	echo "export PATH=$PATH:/home/${USER}/.local/bin" >>.bashrc
-
-
 	source ~/.bashrc
 
 <h4>8. Ansibleバージョン確認</h4>
@@ -72,7 +68,6 @@ fortiosapi==1.0.1</pre>
 
 <h4>12. fortigate vm起動</h4>
 	cd testbeds/fortigate/
-<br>	
 	./start_fgt621.sh ../../fortios_621.qcow2
 
 <h4>13. vm起動確認</h4>
@@ -342,7 +337,6 @@ end
 ---
 <h4>1. ライセンスアップロード用のプレイブックを確認</h4>
 	cd ~/40ansible/examples
-<br>
 	more fortigate_upload_license.yml
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ more fortigate_upload_license.yml
@@ -512,6 +506,7 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
 </pre>
 
 <br><br>
+
 ---
 ### <a name="lab4">LAB4: スタティックURLフィルタの設定</a>
 ---
@@ -570,7 +565,6 @@ options:
 
 <h4>2. プレイブックの内容を確認</h4>
 	cd ~/40ansible/examples
-<br>
 	more fortigate_webfilter_add_url.yml
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ more fortigate_webfilter_add_url.yml
@@ -675,6 +669,7 @@ end
   
 
 <br><br>
+
 ---
 ### <a name="lab5">LAB5: Rolesの活用</a>
 ---
@@ -703,6 +698,7 @@ end
 
 
 <br><br>
+
 ---
 ### <a name="lab6">LAB6: inventoryとhttpapiの活用</a>
 ---
@@ -729,6 +725,7 @@ end
   **********<br>
   
 <br><br>
+
 ---
 ### <a name="lab7">LAB7: ファイアウォールポリシーのルックアップ</a>
 ---
@@ -754,6 +751,7 @@ end
   **********<br>
   **********<br>
   **********<br>
+  
 ---
 
 ### Category Name 2
