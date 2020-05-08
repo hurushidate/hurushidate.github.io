@@ -70,7 +70,7 @@ fortiosapi==1.0.1</pre>
 
 <h4>12. fortigate vm起動</h4>
 	cd testbeds/fortigate/
-	./start.sh ../../fortios_623.qcow2
+	./start_fgt.sh ../../fortios_623.qcow2
 
 <h4>13. vm起動確認</h4>
 	virsh list
