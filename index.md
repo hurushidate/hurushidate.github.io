@@ -655,7 +655,7 @@ $sudo vi fortigate_webfilter_remove_url.yml
         state: "absent"
         id: "1"
 </pre>
-<p style="color:#9164CC">state: "absent"に変更し、id依り下のアトリビュート削除</p>
+<p style="color:#9164CC">state: "absent"に変更し、idより下のアトリビュートを削除</p>
 
 <h4>7. プレイブック実行</h4>
 	ansible-playbook fortigate_webfilter_remove_url.yml
