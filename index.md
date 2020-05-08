@@ -574,8 +574,7 @@ options:
 </pre>
 
 <h5>1-4	Ansible公式ページで確認</h5>
-https://docs.ansible.com/ansible/latest/modules/fortios_webfilter_urlfilter_module.html#fortios-webfilter-urlfilter-module<br>
-モジュールのソースコードは公式ページでも確認可能です。
+モジュールのソースコードは<a href="https://docs.ansible.com/ansible/latest/modules/fortios_webfilter_urlfilter_module.html#fortios-webfilter-urlfilter-module">公式ページ</a>でも確認可能です。
 
 <h4>2. プレイブックの内容を確認</h4>
 	cd ~/40ansible/examples
