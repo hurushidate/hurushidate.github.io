@@ -24,12 +24,12 @@
 
 <h4>2. 演習用ドキュメント一式をダウンロード</h4>
 	git clone https://github.com/fortinet-solutions-cse/testbeds.git
-<br>
+	
+	
 	git clone https://github.com/fortinet-solutions-cse/40ansible.git
 
 <h4>3. 各種パッケージのインストール</h4>
 	cd testbeds/
-<br>
 	./installation.sh
 <p style="color:#9164CC">Generating public/private rsa key pairで対話式でいくつか聞かれるが、全部EnterでOk.</p>
 
@@ -44,11 +44,12 @@
 
 <h4>7. PATHを通す</h4>
 	echo "export PATH=$PATH:/home/${USER}/.local/bin" >>.bashrc
-<br>	
+
+
 	source ~/.bashrc
 
 <h4>8. Ansibleバージョン確認</h4>
-  	ansible-playbook --version
+	ansible-playbook --version
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ ansible-playbook --version
 ansible-playbook 2.9.6
