@@ -175,7 +175,6 @@ forticare_get_asset_details.py  forticare_register_license.py  fortimail.py     
 	sshpass -p admin ssh admin@192.168.122.40 show firewall policy
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ sshpass -p admin ssh admin@192.168.122.40 show firewall policy
-admin@192.168.122.40's password:
 FortiGate-VM64-KVM # config firewall policy
 end</pre>
 
@@ -202,7 +201,6 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
 	sshpass -p admin ssh admin@192.168.122.40 show firewall policy
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ sshpass -p admin ssh admin@192.168.122.40 show firewall policy
-admin@192.168.122.40's password:
 FGT-VM64-KVM # config firewall policy
     edit 1
         set name "ansible"
@@ -308,7 +306,6 @@ $ curl -b cookies -X GET 'http://192.168.122.40/api/v2/cmdb/router/static?action
 	sshpass -p admin ssh admin@192.168.122.40 show router static
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ sshpass -p admin ssh admin@192.168.122.40 show router static
-admin@192.168.122.40's password:
 FortiGate-VM64-KVM # config router static
     edit 2
         set gateway 192.168.122.1
@@ -324,7 +321,6 @@ end
 	sshpass -p admin ssh admin@192.168.122.40 show router static
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ sshpass -p admin ssh admin@192.168.122.40 show router static
-admin@192.168.122.40's password:
 FortiGate-VM64-KVM # config router static
     edit 2
         set gateway 192.168.122.1
@@ -374,7 +370,6 @@ $ more fortigate_upload_license.yml
 	sshpass -p admin ssh admin@192.168.122.40 "get sys status | grep Serial"
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ sshpass -p admin ssh admin@192.168.122.40 "get sys status | grep Serial"
-admin@192.168.122.40's password:
 FortiGate-VM64-KVM # Serial-Number: FGVMEV******
 </pre>
 <p style="color:#9164CC">FGVMEV******はお試し用ライセンス(EValuation)です。</p>
@@ -449,7 +444,6 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
 	sshpass -p admin ssh admin@192.168.122.40 "get sys status | grep Serial"
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ sshpass -p admin ssh admin@192.168.122.40 "get sys status | grep Serial"
-admin@192.168.122.40's password:
 FGVM04TM20000646 # Serial-Number: FGVM04*********
 </pre>
 
@@ -608,7 +602,6 @@ $ more fortigate_webfilter_add_url.yml
 	sshpass -p admin ssh admin@192.168.122.40  show webfilter urlfilter
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ sshpass -p admin ssh admin@192.168.122.40  show webfilter urlfilter
-admin@192.168.122.40's password:
 FortiGate-VM64-KVM # config webfilter urlfilter
 end
 </pre>
@@ -620,7 +613,6 @@ end
 	sshpass -p admin ssh admin@192.168.122.40  show webfilter urlfilter
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ sshpass -p admin ssh admin@192.168.122.40  show webfilter urlfilter
-admin@192.168.122.40's password:
 FortiGate-VM64-KVM # config webfilter urlfilter
     edit 1
         set name "default"
@@ -639,11 +631,8 @@ FortiGate-VM64-KVM # config webfilter urlfilter
 end
 </pre>
 
-<h4>6. 設定を削除するためのプレイブックを作成</h4>
-<h5>6-1	スタティックURLフィルタ設定用のプレイブックをコピー</h5>
+<h4>6. これまでのプレイブックをベースに、設定を削除するためのプレイブックを作成</h4>
 	cp fortigate_webfilter_add_url.yml fortigate_webfilter_remove_url.yml
-
-<h5>6-2	設定削除用プレイブックを編集</h5>
 	sudo vi fortigate_webfilter_remove_url.yml
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $sudo vi fortigate_webfilter_remove_url.yml
@@ -675,7 +664,6 @@ $sudo vi fortigate_webfilter_remove_url.yml
 	sshpass -p admin ssh admin@192.168.122.40  show webfilter urlfilter
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ sshpass -p admin ssh admin@192.168.122.40  show webfilter urlfilter
-admin@192.168.122.40's password:
 FortiGate-VM64-KVM # config webfilter urlfilter
 end
 </pre>
@@ -787,13 +775,11 @@ $ sudo vi fortirole.yml
 	sshpass -p admin ssh admin@192.168.122.40 "show firewall address | grep -f Ansible"
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ sshpass -p admin ssh admin@192.168.122.40 "show firewall address | grep -f Ansible"
-admin@192.168.122.40's password:
 FGVM04TM20000646 #
 </pre>
 	sshpass -p admin ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ sshpass -p admin ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
-admin@192.168.122.40's password:
 FGVM04TM20000646 #
 </pre>
 
@@ -805,7 +791,6 @@ FGVM04TM20000646 #
 	sshpass -p admin ssh admin@192.168.122.40 "show firewall address | grep -f Ansible"
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ sshpass -p admin ssh admin@192.168.122.40 "show firewall address | grep -f Ansible"
-admin@192.168.122.40's password:
 FGVM04TM20000646 # config firewall address
     edit "AnsibleTestFirewallAddress" <---
         set uuid 7b5be672-8b76-51ea-edfc-58c4bfc8cc6d
@@ -816,7 +801,6 @@ end"
 	sshpass -p admin ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ sshpass -p admin ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
-admin@192.168.122.40's password:
 FGVM04TM20000646 # config system api-user
     edit "AnsibleTestApiUser" <---
         set accprofile "super_admin"
@@ -891,7 +875,6 @@ $ sudo vi fortigate_create_system_api_user.yml
 	sshpass -p admin ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ sshpass -p admin ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
-admin@192.168.122.40's password:
 FGVM04TM20000646 #
 </pre>
   
