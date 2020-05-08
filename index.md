@@ -471,8 +471,9 @@ fatal: [localhost]: FAILED! => {"changed": false, "module_stderr": "/home/hu/.lo
 </pre>
 <p style="color:#9164CC">ライセンスが適用されると、管理アクセスがHTTPSにリダイレクトされます。AnsibleではHTTPでリクエストを投げているため不一致でエラーがでています。</p>
 
-<h4>10. プレイブックの編集</h4>
-	sudo vi fortigate_upload_license.yml
+<h4>10. これまでのプレイブックをベースに、HTTPS用のプレイブックを作成</h4>
+	cp fortigate_upload_license.yml fortigate_upload_license_https.yml
+	sudo vi fortigate_upload_license_https.yml
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ sudo vi fortigate_upload_license.yml
 - hosts: localhost
@@ -498,9 +499,9 @@ $ sudo vi fortigate_upload_license.yml
 <p style="color:#9164CC">https: True にします</p>
 
 <h4>11. プレイブック実行 - 5th</h4>
-	ansible-playbook fortigate_upload_license.yml
+	ansible-playbook fortigate_upload_license_https.yml
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
-$ ansible-playbook fortigate_upload_license.yml
+$ ansible-playbook fortigate_upload_license_https.yml
 [WARNING]: No inventory was parsed, only implicit localhost is available
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
@@ -534,20 +535,21 @@ fortiosconfigモジュールとは異なり、Ansible公式モジュールは設
 $ ansible-playbook --version
 ansible-playbook 2.9.6
   config file = None
-  configured module search path = ['/home/hu/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
-  ansible python module location = /home/hu/.local/lib/python3.6/site-packages/ansible
-  executable location = /home/hu/.local/bin/ansible-playbook
+  configured module search path = ['/home/testuser/40ansible/library']
+  ansible python module location = /home/testuser/.local/lib/python3.6/site-packages/ansible
+  executable location = /home/testuser/.local/bin/ansible-playbook
   python version = 3.6.9 (default, Apr 18 2020, 01:56:04) [GCC 8.4.0]
 </pre>
   
 <h5>1-2	fortios用のモジュールを確認</h5>
-	ls /home/hu/.local/lib/python3.6/site-packages/ansible/modules/network/fortios/
+	ls /home/testuser/.local/lib/python3.6/site-packages/ansible/modules/network/fortios
+
 今回は、この中のfortios_webfilter_urlfilter.pyを使います。
 
 <h5>1-3	fortios_webfilter_urlfilter.pyのDOCUMENTATION部分を確認</h5>
-	more /home/hu/.local/lib/python3.6/site-packages/ansible/modules/network/fortios/fortios_webfilter_urlfilter.py
+	more /home/testuser/.local/lib/python3.6/site-packages/ansible/modules/network/fortios/fortios_webfilter_urlfilter.py
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
-$ more /home/hu/.local/lib/python3.6/site-packages/ansible/modules/network/fortios/fortios_webfilter_urlfilter.py
+$ more /home/testuser/.local/lib/python3.6/site-packages/ansible/modules/network/fortios/fortios_webfilter_urlfilter.py
 ...省略...
 DOCUMENTATION = '''
 ---
@@ -572,7 +574,7 @@ options:
 </pre>
 
 <h5>1-4	Ansible公式ページで確認</h5>
-	https://docs.ansible.com/ansible/latest/modules/fortios_webfilter_urlfilter_module.html#fortios-webfilter-urlfilter-module
+https://docs.ansible.com/ansible/latest/modules/fortios_webfilter_urlfilter_module.html#fortios-webfilter-urlfilter-module<br>
 モジュールのソースコードは公式ページでも確認可能です。
 
 <h4>2. プレイブックの内容を確認</h4>
