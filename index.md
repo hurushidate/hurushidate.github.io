@@ -172,7 +172,7 @@ forticare_download_license.py   forticare_get_assets.py        forticare_registe
 forticare_get_asset_details.py  forticare_register_license.py  fortimail.py                 fortiosconfig.py</pre>
 
 <h4>5. プレイブック実行前の、設定確認</h4>
-	ansible-playbook fortigate_create_firewall_policy.yml
+	ssh admin@192.168.122.40 show firewall policy
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ ssh admin@192.168.122.40 show firewall policy
 admin@192.168.122.40's password:
