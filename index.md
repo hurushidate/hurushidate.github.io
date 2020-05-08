@@ -390,7 +390,7 @@ The offending line appears to be:
 
   tasks:
   - name: Upload license
-    ^ here"
+    ^ here
 </pre>
 <p style="color:#9164CC">fortiosconfigモジュールが見つからないと言われています。LAB1で説明したとおり、Ansibleではモジュール探索のため、プレイブックの置かれたディレクトリのlibraryディレクトリを探します。ここではlibraryディレクトリがないため、エラーが出ています。</p>
 
@@ -412,7 +412,7 @@ ok: [localhost]
 TASK [Upload license] *******************************************************************************************************
 
 An exception occurred during task execution. To see the full traceback, use -vvv. The error was: FileNotFoundError: [Errno 2] No such file or directory: 'license_file.lic'
-...省略..."
+...省略...
 </pre>
 
 <p style="color:#9164CC">ライセンスファイルが見つからないと言われています。~/40ansible/examplesに`fos_license_file.lic`というファイル名でライセンスファイルがあります。</p>
@@ -436,7 +436,7 @@ TASK [Upload license] **********************************************************
 changed: [localhost]
 
 PLAY RECAP *******************************************************************************************************
-localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0"
+localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 </pre>
 
 <h4>8. プレイブック実行後の確認</h4>
@@ -461,7 +461,6 @@ ok: [localhost]
 
 TASK [Upload license] *******************************************************************************************************
 fatal: [localhost]: FAILED! => {"changed": false, "module_stderr": "/home/hu/.local/lib/python3.6/site-packages/urllib3/connectionpool.py:986: InsecureRequestWarning: Unverified HTTPS request is being made to host '192.168.122.40'. Adding certificate verification is strongly advised.
-
 ...省略...
 </pre>
 <p style="color:#9164CC">ライセンスが適用されると、管理アクセスがHTTPSにリダイレクトされます。AnsibleではHTTPでリクエストを投げているため不一致でエラーがでています。</p>
@@ -489,8 +488,8 @@ $ sudo vi fortigate_upload_license.yml
      ssl_verify: False
      config_parameters:
       filename: "license_file.lic"
-	https: True にします
 </pre>
+<p style="color:#9164CC">https: True にします</p>
 
 <h4>11. プレイブック実行 - 5th try</h4>
 	ansible-playbook fortigate_upload_license.yml
