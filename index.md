@@ -1,5 +1,5 @@
-## AnsibleでFortiGateを動かしてみよう
-<br><br>
+title: AnsibleでFortiGateを動かしてみよう
+<br>
 <a name="pro"/>
 
 ---
