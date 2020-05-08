@@ -930,7 +930,7 @@ def _fortigate_monitor_get(data):
 </pre>
 
 <h4>3. FNDN(https://fndn.fortinet.netで必須項目を確認</h4>
-URI:  /api/v2/monitor/firewall/policy-lookup/select
+URI:  /api/v2/monitor/firewall/policy-lookup/select <br>
 必須項目: srcintf, protocol, dest
 
 <h4>4. プレイブック作成
@@ -979,22 +979,4 @@ URI:  /api/v2/monitor/firewall/policy-lookup/select
 }
 </pre>
 policy_id:1のポリシーがヒットしていることがわかります
-
----
-
-### Category Name 2
-
-- [Project 1 Title](http://example.com/)
-- [Project 2 Title](http://example.com/)
-- [Project 3 Title](http://example.com/)
-- [Project 4 Title](http://example.com/)
-- [Project 5 Title](http://example.com/)
-
----
-
-
-
-
----
-<p style="font-size:11px">Page template forked from <a href="https://github.com/evanca/quick-portfolio">evanca</a></p>
-<!-- Remove above link if you don't want to attibute -->
+<br><br>
