@@ -379,7 +379,7 @@ FortiGate-VM64-KVM # Serial-Number: FGVMEV******
 </pre>
 <p style="color:#9164CC">FGVMEV******はお試し用ライセンス(EValuation)です。</p>
 
-<h4>3. プレイブック実行 - 1st try</h4>
+<h4>3. プレイブック実行 - 1st</h4>
 	ansible-playbook fortigate_upload_license.yml
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ ansible-playbook fortigate_upload_license.yml
@@ -401,7 +401,7 @@ The offending line appears to be:
 <h4>4. 環境変数ANSIBLE_LIBRARYに、fortiosconfigモジュールのあるlibraryディレクトリを指定</h4>
 	declare -x ANSIBLE_LIBRARY=~/40ansible/library
 
-<h4>5. プレイブック実行 - 2nd try</h4>
+<h4>5. プレイブック実行 - 2nd</h4>
 	ansible-playbook fortigate_upload_license.yml
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ ansible-playbook fortigate_upload_license.yml
@@ -419,12 +419,14 @@ An exception occurred during task execution. To see the full traceback, use -vvv
 ...省略...
 </pre>
 
-<p style="color:#9164CC">ライセンスファイルが見つからないと言われています。~/40ansible/examplesに`fos_license_file.lic`というファイル名でライセンスファイルがあります。</p>
+<p style="color:#9164CC">ライセンスファイルが見つからないと言われています。</p>
+	
+<h4>6. ライセンスアップロード</h4>
+~/40ansible/examplesに<code> license_file.lic </code>というファイル名でライセンスファイルをアップロードします。
 
-<h4>6. ライセンスファイル名の変更</h4>
-	mv fos_license_file.lic license_file.lic
+	scp <ローカルのライセンスファイルpath> <username>@<ubuntu_server_ip>:~/40ansible/examples/license_file.lic
 
-<h4>7. プレイブック実行 - 3rd try</h4>
+<h4>7. プレイブック実行 - 3rd</h4>
 	ansible-playbook fortigate_upload_license.yml
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ ansible-playbook fortigate_upload_license.yml
@@ -451,7 +453,7 @@ admin@192.168.122.40's password:
 FGVM04TM20000646 # Serial-Number: FGVM04*********
 </pre>
 
-<h4>9. プレイブック実行 - 4th try</h4>
+<h4>9. プレイブック実行 - 4th</h4>
 	ansible-playbook fortigate_upload_license.yml
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 ansible-playbook fortigate_upload_license.yml
@@ -495,7 +497,7 @@ $ sudo vi fortigate_upload_license.yml
 </pre>
 <p style="color:#9164CC">https: True にします</p>
 
-<h4>11. プレイブック実行 - 5th try</h4>
+<h4>11. プレイブック実行 - 5th</h4>
 	ansible-playbook fortigate_upload_license.yml
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ ansible-playbook fortigate_upload_license.yml
