@@ -1,6 +1,7 @@
 ## AnsibleでFortiGateを動かしてみよう
 
 <a name="pro"/>
+
 ---
 ### 序. はじめに
 ---
@@ -18,6 +19,7 @@
 
 <br><br>
 <a name="lab0"/>
+
 ---
 ### 環境セットアップ
 ---
@@ -125,8 +127,9 @@ Welcome !  </pre>
 <h4>17. Control+]でconsoleから抜ける</h4>
 
 <br><br>
+<a name="lab1"/>
 
----<a name="lab1"/>
+---
 ### LAB1: ファイアウォールポリシーの設定
 ---
 <h4>1. 40ansibleディレクトリに入る</h4>
@@ -217,8 +220,10 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
 
 <br><br>
 
+<a name="lab2"/>
+
 ---
-### <a name="lab2">LAB2: スタティックルートの設定</a>
+### LAB2: スタティックルートの設定
 ---
 <h4>1. library内のfortiosconfigモジュールでCONFIG_CALLSを検索</h4>
 	more library/fortiosconfig.py
@@ -334,9 +339,10 @@ end
 </pre>
 
 <br><br>
+<a name="lab3"/>
 
 ---
-### <a name="lab3">LAB3: ライセンスのアップロード</a>
+### LAB3: ライセンスのアップロード
 ---
 <h4>1. ライセンスアップロード用のプレイブックを確認</h4>
 	cd ~/40ansible/examples
@@ -509,9 +515,10 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
 </pre>
 
 <br><br>
+<a name="lab4"/>
 
 ---
-### <a name="lab4">LAB4: スタティックURLフィルタの設定</a>
+### LAB4: スタティックURLフィルタの設定
 ---
 LAB1からLAB3で使用したfortiosconfigモジュールは、Ansible公式のモジュールではありません。
 このLabでは、Ansibleコアにあるモジュールを使って設定します。
