@@ -1,5 +1,5 @@
 logo: "/images/fo_log.jpg?raw=true" # your photo (or logo) here
-title: 簡単レシピ<br>　 # website title
+title: 簡単レシピ # website title
 description: > # your text below (remove <br> elements if you don't need line breaks)
   Ansibleを使ってFortiGateを操るためのチュートリアルです。
   <br><br>
