@@ -3,13 +3,14 @@
 ---
 ### <a name="pro">序. はじめに</a>
 ---
- <h4>LAB環境</h4>
+<h4>LAB環境</h4>
  ubuntu server 18.04<br>
  FortiGate-VM64-KVM v6.2.3<br>
  pip3 (python3)<br>
  Ansible 2.9.6<br>
  fortiosapi 1.0.1<br>
- <h4>用意するもの</h4>
+
+<h4>用意するもの</h4>
  ubuntu server 18.04<br>
  fortios 6.2.3 kvm qcow2<br>
  fortigate VMライセンス<br>
@@ -23,12 +24,12 @@
 
 <h4>2. 演習用ドキュメント一式をダウンロード</h4>
 	git clone https://github.com/fortinet-solutions-cse/testbeds.git
-	
+<br>
 	git clone https://github.com/fortinet-solutions-cse/40ansible.git
 
 <h4>3. 各種パッケージのインストール</h4>
- 	cd testbeds/
-	
+	cd testbeds/
+<br>
 	./installation.sh
 <p style="color:#9164CC">Generating public/private rsa key pairで対話式でいくつか聞かれるが、全部EnterでOk.</p>
 
@@ -43,8 +44,9 @@
 
 <h4>7. PATHを通す</h4>
 	echo "export PATH=$PATH:/home/${USER}/.local/bin" >>.bashrc
-	
+<br>	
 	source ~/.bashrc
+
 <h4>8. Ansibleバージョン確認</h4>
   	ansible-playbook --version
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
@@ -69,7 +71,7 @@ fortiosapi==1.0.1</pre>
 
 <h4>12. fortigate vm起動</h4>
 	cd testbeds/fortigate/
-	
+<br>	
 	./start_fgt621.sh ../../fortios_621.qcow2
 
 <h4>13. vm起動確認</h4>
@@ -337,30 +339,175 @@ end
 ---
 ### <a name="lab3">LAB3: ライセンスのアップロード</a>
 ---
-#### 1.
-<br>**********<br>
-<br>**********<br>
-#### 2.
-<br>**********<br>
-<br>**********<br>
-#### 3.
-<br>**********<br>
-<br>**********<br>
-<br>**********<br>
-<br>**********<br>
-<br>**********<br>
-<br>**********<br>
-<br>**********<br>
-<br>**********<br>
-<br>**********<br>
-<br>**********<br>
-<br>**********<br>
-<br>**********<br>
-<br>**********<br>
-<br>**********<br>
-<br>**********<br>
-<br>**********<br>
-<br>**********<br>
+<h4>1. ライセンスアップロード用のプレイブックを確認</h4>
+	cd ~/40ansible/examples
+	more fortigate_upload_license.yml
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ more fortigate_upload_license.yml
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: "admin"
+   vdom: "global"
+  tasks:
+  - name: Upload license
+    fortiosconfig:
+     config: "system vmlicense upload"
+     action: "upload"
+     host:  "{{ host }}"
+     username: "{{ username }}"
+     password: "{{ password }}"
+     vdom:  "{{ vdom }}"
+     https: False
+     ssl_verify: False
+     config_parameters:
+      filename: "license_file.lic"
+</pre>
+	
+<h4>2. プレイブック実行前の確認</h4>
+	ssh admin@192.168.122.40 "get sys status | grep Serial
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ ssh admin@192.168.122.40 "get sys status | grep Serial"
+admin@192.168.122.40's password:
+FortiGate-VM64-KVM # Serial-Number: FGVMEV******
+	FGVMEV******はお試し用ライセンス(EValuation)です。
+
+<h4>3. プレイブック実行 - 1st try</h4>
+	ansible-playbook fortigate_upload_license.yml
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ ansible-playbook fortigate_upload_license.yml
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+ERROR! couldn't resolve module/action 'fortiosconfig'. This often indicates a misspelling, missing collection, or incorrect module path.
+
+The error appears to be in '/home/hu/40ansible/examples/fortigate_upload_license.yml': line 8, column 5, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+  tasks:
+  - name: Upload license
+    ^ here"
+</pre>
+<p style="color:#9164CC">fortiosconfigモジュールが見つからないと言われています。LAB1で説明したとおり、Ansibleではモジュール探索のため、プレイブックの置かれたディレクトリのlibraryディレクトリを探します。ここではlibraryディレクトリがないため、エラーが出ています。</p>
+
+<h4>4. 環境変数ANSIBLE_LIBRARYに、fortiosconfigモジュールのあるlibraryディレクトリを指定</h4>
+	declare -x ANSIBLE_LIBRARY=~/40ansible/library
+
+<h4>5. プレイブック実行 - 2nd try</h4>
+	ansible-playbook fortigate_upload_license.yml
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ ansible-playbook fortigate_upload_license.yml
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+PLAY [localhost] *******************************************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************
+ok: [localhost]
+
+TASK [Upload license] *******************************************************************************************************
+
+An exception occurred during task execution. To see the full traceback, use -vvv. The error was: FileNotFoundError: [Errno 2] No such file or directory: 'license_file.lic'
+...省略..."
+</pre>
+
+<p style="color:#9164CC">ライセンスファイルが見つからないと言われています。~/40ansible/examplesに`fos_license_file.lic`というファイル名でライセンスファイルがあります。</p>
+
+<h4>6. ライセンスファイル名の変更</h4>
+	mv fos_license_file.lic license_file.lic
+
+<h4>7. プレイブック実行 - 3rd try</h4>
+	ansible-playbook fortigate_upload_license.yml
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ ansible-playbook fortigate_upload_license.yml
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+PLAY [localhost] *******************************************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************
+ok: [localhost]
+
+TASK [Upload license] *******************************************************************************************************
+changed: [localhost]
+
+PLAY RECAP *******************************************************************************************************
+localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0"
+</pre>
+
+<h4>8. プレイブック実行後の確認</h4>
+	ssh admin@192.168.122.40 "get sys status | grep Serial"
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ ssh admin@192.168.122.40 "get sys status | grep Serial"
+admin@192.168.122.40's password:
+FGVM04TM20000646 # Serial-Number: FGVM04*********
+</pre>
+
+<h4>9. プレイブック実行 - 4th try</h4>
+	ansible-playbook fortigate_upload_license.yml
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+ansible-playbook fortigate_upload_license.yml
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+PLAY [localhost] *******************************************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************
+ok: [localhost]
+
+TASK [Upload license] *******************************************************************************************************
+fatal: [localhost]: FAILED! => {"changed": false, "module_stderr": "/home/hu/.local/lib/python3.6/site-packages/urllib3/connectionpool.py:986: InsecureRequestWarning: Unverified HTTPS request is being made to host '192.168.122.40'. Adding certificate verification is strongly advised.
+
+...省略...
+</pre>
+<p style="color:#9164CC">ライセンスが適用されると、管理アクセスがHTTPSにリダイレクトされます。AnsibleではHTTPでリクエストを投げているため不一致でエラーがでています。</p>
+
+<h4>10. プレイブックの編集</h4>
+	sudo vi fortigate_upload_license.yml
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ sudo vi fortigate_upload_license.yml
+- hosts: localhost
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: "admin"
+   vdom: "global"
+  tasks:
+  - name: Upload license
+    fortiosconfig:
+     config: "system vmlicense upload"
+     action: "upload"
+     host:  "{{ host }}"
+     username: "{{ username }}"
+     password: "{{ password }}"
+     vdom:  "{{ vdom }}"
+     https: True
+     ssl_verify: False
+     config_parameters:
+      filename: "license_file.lic"
+	https: True にします
+</pre>
+
+<h4>11. プレイブック実行 - 5th try</h4>
+	ansible-playbook fortigate_upload_license.yml
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ ansible-playbook fortigate_upload_license.yml
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+PLAY [localhost] *******************************************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************
+ok: [localhost]
+
+TASK [Upload license] *******************************************************************************************************
+changed: [localhost]
+
+PLAY RECAP *******************************************************************************************************
+localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+</pre>
 
 <br><br>
 ---
