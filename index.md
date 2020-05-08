@@ -932,7 +932,7 @@ def _fortigate_monitor_get(data):
 URI:  /api/v2/monitor/firewall/policy-lookup/select <br>
 必須項目: srcintf, protocol, dest
 
-<h4>4. プレイブック作成
+<h4>4. プレイブック作成</h4>
 	sudo vi fortigate_firewall_policy_lookup.yml
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 - hosts: localhost
