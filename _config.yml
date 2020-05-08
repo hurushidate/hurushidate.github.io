@@ -3,8 +3,8 @@ title: 簡単レシピシリーズ<br>第1弾　 # website title
 description: > # your text below (remove <br> elements if you don't need line breaks)
   Ansibleを使ってFortiGateを操るためのビギナー向けチュートリアルです。
   <br><br>
-  <h3> も・く・じ▼ </h3>
-  <a href="#pro">序</a><br>
+  <h4>も・く・じ</h4>
+  <a href="#pro">はじめに</a><br>
   <a href="#lab0">環境セットアップ</a><br>
   <a href="#lab1">LAB1: ファイアウォールポリシーの設定</a><br>
   <a href="#lab2">LAB2: スタティックルートの設定</a><br>
