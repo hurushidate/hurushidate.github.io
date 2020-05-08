@@ -1,7 +1,8 @@
 ## AnsibleでFortiGateを動かしてみよう
 
+<a name="pro"/>
 ---
-### <a name="pro">序. はじめに</a>
+### 序. はじめに
 ---
 <h4>LAB環境</h4>
  ubuntu server 18.04<br>
@@ -16,9 +17,9 @@
  fortigate VMライセンス<br>
 
 <br><br>
-
+<a name="lab0"/>
 ---
-### <a name="lab0">環境セットアップ</a>
+### 環境セットアップ
 ---
 <h4>1. ubuntuにsshアクセス</h4>
 
@@ -125,8 +126,8 @@ Welcome !  </pre>
 
 <br><br>
 
----
-### <a name="lab1">LAB1: ファイアウォールポリシーの設定</a>
+---<a name="lab1"/>
+### LAB1: ファイアウォールポリシーの設定
 ---
 <h4>1. 40ansibleディレクトリに入る</h4>
 	cd ~/40ansible/
