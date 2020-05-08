@@ -172,9 +172,9 @@ forticare_download_license.py   forticare_get_assets.py        forticare_registe
 forticare_get_asset_details.py  forticare_register_license.py  fortimail.py                 fortiosconfig.py</pre>
 
 <h4>5. プレイブック実行前の、設定確認</h4>
-	ssh admin@192.168.122.40 show firewall policy
+	sshpass -p admin ssh admin@192.168.122.40 show firewall policy
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
-$ ssh admin@192.168.122.40 show firewall policy
+$ sshpass -p admin ssh admin@192.168.122.40 show firewall policy
 admin@192.168.122.40's password:
 FortiGate-VM64-KVM # config firewall policy
 end</pre>
@@ -199,23 +199,25 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</pre>
 
 <h4>7. プレイブック実行後の設定確認</h4>
-	ssh admin@192.168.122.40 show firewall policy
+	sshpass -p admin ssh admin@192.168.122.40 show firewall policy
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
-$ ansible-playbook fortigate_create_firewall_policy.yml
-[WARNING]: No inventory was parsed, only implicit localhost is available
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost
-does not match 'all'
-
-PLAY [localhost] ***************************************************************************************
-
-TASK [Gathering Facts] *********************************************************************************
-ok: [localhost]
-
-TASK [create firewall policy] **************************************************************************
-changed: [localhost]
-
-PLAY RECAP *********************************************************************************************
-localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</pre>
+$ sshpass -p admin ssh admin@192.168.122.40 show firewall policy
+admin@192.168.122.40's password:
+FGT-VM64-KVM # config firewall policy
+    edit 1
+        set name "ansible"
+        set uuid 5c957b3c-910b-51ea-140e-d7e6496a3cba
+        set srcintf "any"
+        set dstintf "any"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "HTTPS"
+        set logtraffic all
+    next
+end
+</pre>
 
 <br><br>
 <a name="lab2"/>
@@ -303,9 +305,9 @@ $ curl -b cookies -X GET 'http://192.168.122.40/api/v2/cmdb/router/static?action
 </pre>
 
 <h4>5. プレイブック実行前の確認</h4>
-	ssh admin@192.168.122.40 show router static
+	sshpass -p admin ssh admin@192.168.122.40 show router static
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
-$ ssh admin@192.168.122.40 show router static
+$ sshpass -p admin ssh admin@192.168.122.40 show router static
 admin@192.168.122.40's password:
 FortiGate-VM64-KVM # config router static
     edit 2
@@ -319,9 +321,9 @@ end
 	ansible-playbook fortigate_modify_router_static.yml
 
 <h4>7. プレイブック実行後の確認</h4>
-	ssh admin@192.168.122.40 show router static
+	sshpass -p admin ssh admin@192.168.122.40 show router static
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
-$ ssh admin@192.168.122.40 show router static
+$ sshpass -p admin ssh admin@192.168.122.40 show router static
 admin@192.168.122.40's password:
 FortiGate-VM64-KVM # config router static
     edit 2
@@ -369,9 +371,9 @@ $ more fortigate_upload_license.yml
 </pre>
 	
 <h4>2. プレイブック実行前の確認</h4>
-	ssh admin@192.168.122.40 "get sys status | grep Serial"
+	sshpass -p admin ssh admin@192.168.122.40 "get sys status | grep Serial"
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
-$ ssh admin@192.168.122.40 "get sys status | grep Serial"
+$ sshpass -p admin ssh admin@192.168.122.40 "get sys status | grep Serial"
 admin@192.168.122.40's password:
 FortiGate-VM64-KVM # Serial-Number: FGVMEV******
 </pre>
@@ -442,9 +444,9 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
 </pre>
 
 <h4>8. プレイブック実行後の確認</h4>
-	ssh admin@192.168.122.40 "get sys status | grep Serial"
+	sshpass -p admin ssh admin@192.168.122.40 "get sys status | grep Serial"
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
-$ ssh admin@192.168.122.40 "get sys status | grep Serial"
+$ sshpass -p admin ssh admin@192.168.122.40 "get sys status | grep Serial"
 admin@192.168.122.40's password:
 FGVM04TM20000646 # Serial-Number: FGVM04*********
 </pre>
@@ -600,9 +602,9 @@ $ more fortigate_webfilter_add_url.yml
 </pre>
 
 <h4>3. プレイブック実行前の設定確認</h4>
-	ssh admin@192.168.122.40  show webfilter urlfilter
+	sshpass -p admin ssh admin@192.168.122.40  show webfilter urlfilter
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
-$ ssh admin@192.168.122.40  show webfilter urlfilter
+$ sshpass -p admin ssh admin@192.168.122.40  show webfilter urlfilter
 admin@192.168.122.40's password:
 FortiGate-VM64-KVM # config webfilter urlfilter
 end
@@ -612,9 +614,9 @@ end
 	ansible-playbook fortigate_webfilter_add_url.yml
 
 <h4>5. プレイブック実行後の設定確認</h4>
-	ssh admin@192.168.122.40  show webfilter urlfilter
+	sshpass -p admin ssh admin@192.168.122.40  show webfilter urlfilter
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
-$ ssh admin@192.168.122.40  show webfilter urlfilter
+$ sshpass -p admin ssh admin@192.168.122.40  show webfilter urlfilter
 admin@192.168.122.40's password:
 FortiGate-VM64-KVM # config webfilter urlfilter
     edit 1
@@ -667,9 +669,9 @@ $sudo vi fortigate_webfilter_remove_url.yml
 	ansible-playbook fortigate_webfilter_remove_url.yml
 
 <h4>8. プレイブック実行後の設定確認</h4>
-	ssh admin@192.168.122.40  show webfilter urlfilter
+	sshpass -p admin ssh admin@192.168.122.40  show webfilter urlfilter
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
-$ ssh admin@192.168.122.40  show webfilter urlfilter
+$ sshpass -p admin ssh admin@192.168.122.40  show webfilter urlfilter
 admin@192.168.122.40's password:
 FortiGate-VM64-KVM # config webfilter urlfilter
 end
@@ -779,15 +781,15 @@ $ sudo vi fortirole.yml
 </pre>
 
 <h4>8. プレイブック実行前の確認</h4>
-	ssh admin@192.168.122.40 "show firewall address | grep -f Ansible"
+	sshpass -p admin ssh admin@192.168.122.40 "show firewall address | grep -f Ansible"
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
-$ ssh admin@192.168.122.40 "show firewall address | grep -f Ansible"
+$ sshpass -p admin ssh admin@192.168.122.40 "show firewall address | grep -f Ansible"
 admin@192.168.122.40's password:
 FGVM04TM20000646 #
 </pre>
-	ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
+	sshpass -p admin ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
-$ ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
+$ sshpass -p admin ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
 admin@192.168.122.40's password:
 FGVM04TM20000646 #
 </pre>
@@ -797,9 +799,9 @@ FGVM04TM20000646 #
 	ansible-playbook fortirole.yml
 
 <h4>10. プレイブック実行後の確認</h4>
-	ssh admin@192.168.122.40 "show firewall address | grep -f Ansible"
+	sshpass -p admin ssh admin@192.168.122.40 "show firewall address | grep -f Ansible"
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
-$ ssh admin@192.168.122.40 "show firewall address | grep -f Ansible"
+$ sshpass -p admin ssh admin@192.168.122.40 "show firewall address | grep -f Ansible"
 admin@192.168.122.40's password:
 FGVM04TM20000646 # config firewall address
     edit "AnsibleTestFirewallAddress" <---
@@ -808,9 +810,9 @@ FGVM04TM20000646 # config firewall address
     next
 end"
 </pre>
-	ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
+	sshpass -p admin ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
-$ ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
+$ sshpass -p admin ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
 admin@192.168.122.40's password:
 FGVM04TM20000646 # config system api-user
     edit "AnsibleTestApiUser" <---
@@ -883,9 +885,9 @@ $ sudo vi fortigate_create_system_api_user.yml
 	ansible-playbook -i hosts fortigate_create_system_api_user.yml
 
 <h4>4. プレイブック実行後の確認</h4>
-	ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
+	sshpass -p admin ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
-$ ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
+$ sshpass -p admin ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
 admin@192.168.122.40's password:
 FGVM04TM20000646 #
 </pre>
