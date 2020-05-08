@@ -1,7 +1,7 @@
 <br><br>
 <a name="pro"/>
 
-<pre> "%7b%7b user %7d%7d"
+<pre> "%7b%7b user %7d%7d" </pre>
 
 ---
 ### はじめに
