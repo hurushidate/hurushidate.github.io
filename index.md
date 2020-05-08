@@ -710,10 +710,7 @@ $ sudo vi fortirole.yml
   - { role: "fortirole" }
  </pre>
 
-<h4>4. 予め用意されている2つのプレイブックをfortirole/tasksにコピー</h4>
-	cp fortigate_create_firewall_address.yml ~/40ansible/fortirole/tasks/
-
-<h4>5. コピー先の2つのプレイブックのtasksアトリビュートのみ残す</h4>
+<h4>4. fortirole/tasksに、以下2つのプレイブックを作成</h4>
 	cd ~/40ansible/fortirole/tasks
 	sudo vi fortigate_create_firewall_address.yml
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
@@ -751,7 +748,7 @@ $ sudo vi fortirole.yml
             ipv4-trusthost: "192.168.0.0 255.255.0.0"
 </pre>
 
-<h4>6. tasksディレクトリにあるmain.ymlを編集し、2つのtasksを入れる(import_tasks)</h4>
+<h4>5. tasksディレクトリにあるmain.ymlを編集し、2つのtasksを入れる(import_tasks)</h4>
 	cd ~/40ansible/fortirole/tasks
 	sudo vi main.yml
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
@@ -760,7 +757,7 @@ $ sudo vi fortirole.yml
 - import_tasks: fortigate_create_system_api_user.yml
 </pre>
 
-<h4>7. varsディレクトリにあるmain.ymlを編集し、もとのプレイブックのvarsアトレリビュートをコピペ</h4>
+<h4>6. varsディレクトリにあるmain.ymlを編集し、もとのプレイブックのvarsアトレリビュートをコピペ</h4>
 	cd ~/40ansible/fortirole/vars
 	sudo vi main.yml
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
@@ -771,7 +768,7 @@ $ sudo vi fortirole.yml
    vdom: "root"
 </pre>
 
-<h4>8. プレイブック実行前の確認</h4>
+<h4>7. プレイブック実行前の確認</h4>
 	sshpass -p admin ssh admin@192.168.122.40 "show firewall address | grep -f Ansible"
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ sshpass -p admin ssh admin@192.168.122.40 "show firewall address | grep -f Ansible"
@@ -784,10 +781,10 @@ FGVM04TM20000646 #
 </pre>
 
 
-<h4>9. プレイブック実行</h4>
+<h4>8. プレイブック実行</h4>
 	ansible-playbook fortirole.yml
 
-<h4>10. プレイブック実行後の確認</h4>
+<h4>9. プレイブック実行後の確認</h4>
 	sshpass -p admin ssh admin@192.168.122.40 "show firewall address | grep -f Ansible"
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ sshpass -p admin ssh admin@192.168.122.40 "show firewall address | grep -f Ansible"
