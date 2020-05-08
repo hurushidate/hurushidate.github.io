@@ -156,7 +156,7 @@ $ more fortigate_create_firewall_policy.yml
      vdom: "{{ vdom }}"
      https: False
      ssl_verify: False
---省略--</pre>
+...省略...</pre>
 
 <p style="color:#9164CC">解説1: このプレイブックでは、fortiosconfigモジュールを使うことがわかります。Ansibleでは、モジュールを探索するためにプレイブックの置かれたディレクトリ内のlibraryディレクトリを参照します。2. でプレイブックをコピーしたのはこのためです。</p>
 <p style="color:#9164CC">解説2: この演習では、まずお試しライセンスで行います。お試しライセンスでは、管理アクセスがhttpのみに限られますので、https: Falseとしています。</p>
@@ -223,7 +223,7 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
 	more library/fortiosconfig.py
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 ~/40ansible$ more library/fortiosconfig.py
---省略--
+...省略...
 CONFIG_CALLS = [
     'alertemail setting',
     'antivirus heuristic',
@@ -233,7 +233,7 @@ CONFIG_CALLS = [
     'router static',
     'router static6',
     'spamfilter bwl',
---省略--
+...省略...
 </pre>
 <p style="color:#9164CC">CONFIG_CALLSにある設定項目がfortiosconfigモジュールで設定可能です。</p>
 
@@ -295,7 +295,8 @@ $ curl -b cookies -X GET 'http://192.168.122.40/api/v2/cmdb/router/static?action
        seq-num: "5"
        dst: "192.168.130.0/23"
        gateway: "192.168.130.1"
-       device: "port1"</pre>
+       device: "port1"
+</pre>
 
 <h4>5. プレイブック実行前の確認</h4>
 	ssh admin@192.168.122.40 show router static
@@ -307,7 +308,8 @@ FortiGate-VM64-KVM # config router static
         set gateway 192.168.122.1
         set device "port1"
     next
-end</pre>
+end
+</pre>
 
 <h4>6. プレイブック実行</h4>
 	ansible-playbook fortigate_modify_router_static.yml
@@ -673,27 +675,143 @@ end
 ---
 ### <a name="lab5">LAB5: Rolesの活用</a>
 ---
-#### 1.
-  **********<br>
-  **********<br>
-#### 2.
-  **********<br>
-  **********<br>
-#### 3.
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
+Rolesは特定のvars_fileやtasks、handlersをあらかじめ決められたファイル構造で置くと、自動的にロードされる仕組みです。
+複雑で膨大な処理を書きたい場合、1つのプレイブックに全て書くのではなく、Rolesを使います。
+	
+<h4>1. fortiroleという名前でロールを作成</h4>
+	cd ~/40ansible
+	ansible-galaxy init fortirole
+
+<h4>2. 自動生成されたfortiroleのディレクトリ構造を確認</h4>
+	ll ~/40ansible/fortirole
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ ll fortirole
+total 48
+drwxrwxr-x 10 hu hu 4096 May  1 03:47 ./
+drwxrwxr-x  7 hu hu 4096 May  1 04:44 ../
+-rw-rw-r--  1 hu hu  539 May  1 03:47 .travis.yml
+-rw-rw-r--  1 hu hu 1328 May  1 03:47 README.md
+drwxrwxr-x  2 hu hu 4096 May  1 03:47 defaults/
+drwxrwxr-x  2 hu hu 4096 May  1 03:47 files/
+drwxrwxr-x  2 hu hu 4096 May  1 03:47 handlers/
+drwxrwxr-x  2 hu hu 4096 May  1 03:47 meta/
+drwxrwxr-x  2 hu hu 4096 May  1 04:45 tasks/
+drwxrwxr-x  2 hu hu 4096 May  1 03:47 templates/
+drwxrwxr-x  2 hu hu 4096 May  1 03:47 tests/
+drwxrwxr-x  2 hu hu 4096 May  1 03:47 vars/
+</pre>
+
+<h4>3. 新規にプレイブックを作成し、rolesアトリビュートを追加</h4>
+	sudo vi fortirole.yml
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ sudo vi fortirole.yml
+- hosts: localhost
+  roles:
+  - { role: "fortirole" }
+ </pre>
+
+<h4>4. 予め用意されている2つのプレイブックをfortirole/tasksにコピー</h4>
+	cp fortigate_create_firewall_address.yml ~/40ansible/fortirole/tasks/
+
+<h4>5. コピー先の2つのプレイブックのtasksアトリビュートのみ残す</h4>
+	cd ~/40ansible/fortirole/tasks
+	sudo vi fortigate_create_firewall_address.yml
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+  - name: Configure IPv4 addresses.
+    fortios_firewall_address:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: True
+      ssl_verify: False
+      state: "present"
+      firewall_address:
+        name: "AnsibleTestFirewallAddress"
+        subnet: "200.200.200.0/24"
+        type: "ipmask"
+</pre>
+	sudo vi fortigate_create_system_api_user.yml
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+  - name: Configure API users.
+    fortios_system_api_user:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "True"
+      ssl_verify: "False"
+      state: "present"
+      system_api_user:
+        accprofile: "super_admin"
+        name: "AnsibleTestApiUser"
+        trusthost:
+         -
+            id:  "1"
+            ipv4-trusthost: "192.168.0.0 255.255.0.0"
+</pre>
+
+<h4>6. tasksディレクトリにあるmain.ymlを編集し、2つのtasksを入れる(import_tasks)</h4>
+	cd ~/40ansible/fortirole/tasks
+	sudo vi main.yml
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+# tasks file for fortirole
+- import_tasks: fortigate_create_firewall_address.yml
+- import_tasks: fortigate_create_system_api_user.yml
+</pre>
+
+<h4>7. varsディレクトリにあるmain.ymlを編集し、もとのプレイブックのvarsアトレリビュートをコピペ</h4>
+	cd ~/40ansible/fortirole/vars
+	sudo vi main.yml
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+# vars file for fortirole
+   host: "192.168.122.40"
+   username: "admin"
+   password: "admin"
+   vdom: "root"
+</pre>
+
+<h4>8. プレイブック実行前の確認</h4>
+	ssh admin@192.168.122.40 "show firewall address | grep -f Ansible"
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ ssh admin@192.168.122.40 "show firewall address | grep -f Ansible"
+admin@192.168.122.40's password:
+FGVM04TM20000646 #
+</pre>
+	ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
+admin@192.168.122.40's password:
+FGVM04TM20000646 #
+</pre>
+
+
+<h4>9. プレイブック実行</h4>
+	ansible-playbook fortirole.yml
+
+<h4>10. プレイブック実行後の確認</h4>
+	ssh admin@192.168.122.40 "show firewall address | grep -f Ansible"
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ ssh admin@192.168.122.40 "show firewall address | grep -f Ansible"
+admin@192.168.122.40's password:
+FGVM04TM20000646 # config firewall address
+    edit "AnsibleTestFirewallAddress" <---
+        set uuid 7b5be672-8b76-51ea-edfc-58c4bfc8cc6d
+        set subnet 200.200.200.0 255.255.255.0
+    next
+end"
+</pre>
+	ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
+admin@192.168.122.40's password:
+FGVM04TM20000646 # config system api-user
+    edit "AnsibleTestApiUser" <---
+        set accprofile "super_admin"
+        set vdom "root"
+    next
+end
+</pre>
 
 
 
