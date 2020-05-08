@@ -90,7 +90,7 @@ Escape character is ^]
 FortiGate-VM64-KVM login: admin
 Password: </pre> 
 
-<h4>15. New Passwordで`admin`を設定</h4>
+<h4>15. パスワードの変更を促すプロンプトがでるので<code>admin</code>を設定</h4>
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 You are forced to change your password, please input a new password.
 New Password:*****
