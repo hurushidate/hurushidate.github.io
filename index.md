@@ -20,25 +20,31 @@
 ### <a name="lab0">環境セットアップ</a>
 ---
 <h4>1. ubuntuにsshアクセス</h4>
- <h4>2. 演習用ドキュメント一式をダウンロード</h4>
-  $ git clone https://github.com/fortinet-solutions-cse/testbeds.git<br>
-  $ git clone https://github.com/fortinet-solutions-cse/40ansible.git<br>
- <h4>3. 各種パッケージのインストール</h4>
+
+<h4>2. 演習用ドキュメント一式をダウンロード</h4>
+	git clone https://github.com/fortinet-solutions-cse/testbeds.git
+	git clone https://github.com/fortinet-solutions-cse/40ansible.git
+
+<h4>3. 各種パッケージのインストール</h4>
  	cd testbeds/
 	./installation.sh
-  <p style="color:#9164CC">Generating public/private rsa key pairで対話式でいくつか聞かれるが、全部EnterでOk.</p>
- <h4>4. ubuntuをリブート</h4>
+<p style="color:#9164CC">Generating public/private rsa key pairで対話式でいくつか聞かれるが、全部EnterでOk.</p>
+
+<h4>4. ubuntuをリブート</h4>
  	sudo reboot
- <h4>5. pip3 インストール</h4>
+
+<h4>5. pip3 インストール</h4>
 	sudo apt install -y python3-pip
- <h4>6. Ansible 2.9.6インストール</h4>
+
+<h4>6. Ansible 2.9.6インストール</h4>
 	pip3 install ansible==2.9.6
- <h4>7. PATHを通す</h4>
+
+<h4>7. PATHを通す</h4>
 	echo "export PATH=$PATH:/home/${USER}/.local/bin" >>.bashrc
 	source ~/.bashrc
-  <h4>8. Ansibleバージョン確認</h4>
+<h4>8. Ansibleバージョン確認</h4>
   	ansible-playbook --version
- <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ ansible-playbook --version
 ansible-playbook 2.9.6
   config file = None
@@ -46,18 +52,23 @@ ansible-playbook 2.9.6
   ansible python module location = /home/hu/.local/lib/python3.6/site-packages/ansible
   executable location = /home/hu/.local/bin/ansible-playbook
   python version = 3.6.9 (default, Apr 18 2020, 01:56:04) [GCC 8.4.0]</pre>
-  <h4>9. fortiosapiインストール</h4>
-  $ pip3 install fortiosapi==1.0.1<br>
-  <h4>10. fortiosapiのバージョン確認</h4>
-  $ pip3 freeze | grep fortiosapi
- <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+  
+<h4>9. fortiosapiインストール</h4>
+	pip3 install fortiosapi==1.0.1
+
+<h4>10. fortiosapiのバージョン確認</h4>
+	pip3 freeze | grep fortiosapi
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
   $ pip3 freeze | grep fortiosapi
   fortiosapi==1.0.1</pre>
-  <h4>11. kvm(fortios_623.qcow2)をホームディレクトリにアップロード</h4>
-  <h4>12. fortigate vm起動</h4>
-  cd testbeds/fortigate/<br>
-  ./start_fgt621.sh ../../fortios_621.qcow2<br>
-  <h4>13. vm起動確認</h4>
+
+<h4>11. kvm(fortios_623.qcow2)をホームディレクトリにアップロード</h4>
+
+<h4>12. fortigate vm起動</h4>
+	cd testbeds/fortigate/
+	./start_fgt621.sh ../../fortios_621.qcow2
+
+<h4>13. vm起動確認</h4>
   	virsh list
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">  
 $ virsh list
@@ -67,7 +78,7 @@ $ virsh list
 
 <h4>14. kvmコンソールでログイン</h4>
  	virsh console fortigate
-  <p style="color:#9164CC"> Username: admin, Password: なし</p>
+<p style="color:#9164CC"> Username: admin, Password: なし</p>
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">  
 $ virsh console fortigate
 Connected to domain fortigate
@@ -117,8 +128,10 @@ Welcome !  </pre>
 ---
 <h4>1. 40ansibleディレクトリに入る</h4>
 	cd ~/40ansible/
+
 <h4>2. examplesディレクトリにあるfortigate_create_firewall_policy.ymlプレイブックをカレントディレクトリにコピー</h4>
 	cp examples/fortigate_create_firewall_policy.yml .
+
 <h4>3. fortigate_create_firewall_policy.ymlプレイブックを確認</h4>
 	more fortigate_create_firewall_policy.yml
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
@@ -218,45 +231,47 @@ CONFIG_CALLS = [
     'router static',
     'router static6',
     'spamfilter bwl',
---省略--"
-	</pre>
-	<p style="color:#9164CC">CONFIG_CALLSにある設定項目がfortiosconfigモジュールで設定可能です。</p>
+--省略--
+</pre>
+<p style="color:#9164CC">CONFIG_CALLSにある設定項目がfortiosconfigモジュールで設定可能です。</p>
+
 <h4>2. REST APIスキーマの確認</h4>
 <h5>2.1	APIログインのためのクッキー情報取得</h5>
-	$ curl http://192.168.122.40/logincheck -H 'Cache-Control: cache' -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=admin&secretkey=admin&ajax=1' -c cookies<br>
+	curl http://192.168.122.40/logincheck -H 'Cache-Control: cache' -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=admin&secretkey=admin&ajax=1' -c cookies
 <h5>2.2	スキーマの取得</h5>
-	$ curl -b cookies -X GET 'http://192.168.122.40/api/v2/cmdb/router/static?action=schema'<br>
-	<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
-	"$ curl -b cookies -X GET 'http://192.168.122.40/api/v2/cmdb/router/static?action=schema'
+	curl -b cookies -X GET 'http://192.168.122.40/api/v2/cmdb/router/static?action=schema'<br>
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ curl -b cookies -X GET 'http://192.168.122.40/api/v2/cmdb/router/static?action=schema'
 {
-  ""http_method"":""GET"",
-  ""revision"":""20b4c7ed3916791a3efd6e596513f42c"",
-  ""results"":{
-    ""name"":""static"",
-    ""category"":""table"",
-    ""help"":""Configure IPv4 static routing tables."",
-    ""mkey"":""seq-num"",
-    ""mkey_type"":""integer"",
-    ""children"":{
-      ""seq-num"":{
+  "http_method":"GET",
+  "revision":"20b4c7ed3916791a3efd6e596513f42c",
+  "results":{
+    "name":"static",
+    "category":"table",
+    "help":"Configure IPv4 static routing tables.",
+    "mkey":"seq-num",
+    "mkey_type":"integer",
+    "children":{
+      "seq-num":{
         ...
       },
-      ""status"":{
+      "status":{
       },
-      ""dst"":{
+      "dst":{
       },
-      ""src"":{
+      "src":{
       },
-...省略..."
+...省略...
 </pre>
-<p style="color:#9164CC">
-	master-key(mkye)がseq-numで、children配下に設定アトリビュートとして、seq-num, status, dst, src, などがあることがわかります。プレイブックを作成するときに、これらのアトリビュートを使用します。</p>
+<p style="color:#9164CC">master-key(mkye)がseq-numで、children配下に設定アトリビュートとして、seq-num, status, dst, src, などがあることがわかります。プレイブックを作成するときに、これらのアトリビュートを使用します。</p>
+
 <h4>3. Lab1で使ったプレイブックをコピーし、スタティックルート設定用のプレイブック(fortigate_modify_router_static.yml)を作成</h4>
-	cp fortigate_create_firewall_policy.yml fortigate_modify_router_static.yml<br>
+	cp fortigate_create_firewall_policy.yml fortigate_modify_router_static.yml
+
 <h4>4. プレイブックを編集</h4>
-	$ sudo vi fortigate_modify_router_static.yml<br>
+	sudo vi fortigate_modify_router_static.yml
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
-	" - hosts: localhost
+- hosts: localhost
 #  strategy: debug
   vars:
    host: "192.168.122.40"
@@ -275,13 +290,13 @@ CONFIG_CALLS = [
      https: False
      ssl_verify: False
      config_parameters:
-       seq-num: ""5""
+       seq-num: "5"
        dst: "192.168.130.0/23"
        gateway: "192.168.130.1"
-       device: "port1"
-	   </pre>
+       device: "port1"</pre>
+
 <h4>5. プレイブック実行前の確認</h4>
-	$ ssh admin@192.168.122.40 show router static<br>
+	ssh admin@192.168.122.40 show router static
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ ssh admin@192.168.122.40 show router static
 admin@192.168.122.40's password:
@@ -290,12 +305,13 @@ FortiGate-VM64-KVM # config router static
         set gateway 192.168.122.1
         set device "port1"
     next
-end
-</pre>
+end</pre>
+
 <h4>6. プレイブック実行</h4>
-	$ ansible-playbook fortigate_modify_router_static.yml<br>
+	ansible-playbook fortigate_modify_router_static.yml
+
 <h4>7. プレイブック実行前の確認</h4>
-	$ ssh admin@192.168.122.40 show router static<br>
+	ssh admin@192.168.122.40 show router static
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ ssh admin@192.168.122.40 show router static
 admin@192.168.122.40's password:
@@ -313,6 +329,7 @@ end
 </pre>
 
 <br><br>
+
 ---
 ### <a name="lab3">LAB3: ライセンスのアップロード</a>
 ---
