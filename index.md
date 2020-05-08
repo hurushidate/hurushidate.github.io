@@ -7,7 +7,7 @@
 <h4>LAB環境</h4>
  ubuntu server 18.04<br>
  FortiGate-VM64-KVM v6.2.3<br>
- pip3 (python3)<br>
+ pip3 (python3.6.9)<br>
  Ansible 2.9.6<br>
  fortiosapi 1.0.1<br>
 
@@ -70,7 +70,7 @@ fortiosapi==1.0.1</pre>
 
 <h4>12. fortigate vm起動</h4>
 	cd testbeds/fortigate/
-	./start_fgt621.sh ../../fortios_621.qcow2
+	./start.sh ../../fortios_623.qcow2
 
 <h4>13. vm起動確認</h4>
 	virsh list
