@@ -827,10 +827,10 @@ end
 <a name="lab6"/>
 
 ---
-### <a name="lab6">LAB6: inventoryとhttpapiの活用</a>
+### <a name="lab6">LAB6: inventoryとhttpapiプラグインの活用</a>
 ---
 Inventoryファイル(hostsファイル)を使うことで、複数のFortiGateに対して同じコマンドを実施できます。
-これまでのLABでは、fortiosapiモジュールでAnsibleプレイブックをFortiOSのREST APIに変換してきましたが、ここではAnsible公式モジュールのhttpapiを使用します。
+これまでのLABでは、Ansible構文をFortiOS REST APIにコンバートする際に、fortiosapiライブラリを使ってきました。Ansible 2.9以降に追加されたモジュールでは、httpapiプラグインも使用できるようになっています。
 
 <h4>1. カレントディレクトリにhostsという名前でInventoryファイルを作成</h4>
 	sudo vi hosts
@@ -854,8 +854,9 @@ all:
 </pre>
 
 <h4>2. カレントディクトリのfortigate_create_system_api_user.ymlを編集</h4>
-LAB5の最後に作成したAPIユーザを削除するために、<code>state: absent</code>とします。
 	sudo vi fortigate_create_system_api_user.yml
+	
+LAB5の最後に作成したAPIユーザを削除するために、<code>state: absent</code>とします。
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ sudo vi fortigate_create_system_api_user.yml
 - hosts: fortios
@@ -896,29 +897,89 @@ FGVM04TM20000646 #
 ---
 ### <a name="lab7">LAB7: ファイアウォールポリシーのルックアップ</a>
 ---
+FortiOSはREST APIは、CMDB APIとMonitor APIの2種類あります。
+CMDB APIは設定に関わるAPIですので、Ansibleで公開しているほとんどのモジュールはこのCMDB APIに変換されます。
+ここでは、Monitor APIの一つであるファイアウォールポリシーのルックアップを実行するためのモジュールを作成します。
 
-#### 1.
-  **********<br>
-  **********<br>
-#### 2.
-  **********<br>
-  **********<br>
-#### 3.
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  
+<h4>1. fortiosconfigモジュールを微調整</h4>
+	sudo vi ~/40ansible/library/fortiosconfig.py
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ sudo vi ~/40ansible/library/fortiosconfig.py
+...省略...
+"MONITOR_CALLS = [
+    'system config backup',
+    'system config restore',
+    'system resource usage',
+    'system vdom-resource select',
+    'system vmlicense upload',
+    'vpn-certificate csr generate',
+    'firewall policy-lookup select'
+]"
+...省略...
+def _fortigate_monitor_get(data):
+    login(data)
+
+    functions = data['config'].split()
+
+    path, name = extract_path_and_name(functions)
+    parameters = data['config_parameters']
+
+    resp = fos.monitor(path, name, vdom=data['vdom'], parameters=parameters)
+    logout()
+...省略...
+</pre>
+
+<h4>3. FNDN(https://fndn.fortinet.netで必須項目を確認</h4>
+URI:  /api/v2/monitor/firewall/policy-lookup/select
+必須項目: srcintf, protocol, dest
+
+<h4>4. プレイブック作成
+	sudo vi fortigate_firewall_policy_lookup.yml
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+- hosts: localhost
+#  strategy: debug
+  vars:
+   host: "192.168.122.40"
+   username: "admin"
+   password: "admin"
+   vdom: "root"
+  tasks:
+  - name: firewall policy lookup
+    fortiosconfig:
+     config: "firewall policy-lookup select"
+     action: "get"
+     host: "{{ host }}"
+     username: "{{ username }}"
+     password: "{{ password }}"
+     vdom: "{{ vdom }}"
+     https: True
+     ssl_verify: False
+     config_parameters:
+       srcintf: "port1"
+       dest: "10.0.0.1"
+       protocol: "tcp"
+       sourceip: "5.5.5.5"
+       destport: 443
+</pre>
+
+<h4>5. プレイブック実行</h4>
+	ansible-playbook fortigate_firewall_policy_lookup.yml -vvv
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+…省略…
+    },
+    "meta": {
+        "results": {
+            "destip": "10.0.0.1",
+            "policy_id": 1,
+            "success": true
+        },
+        "status": "success",
+        "version": "v6.2.1"
+    }
+}
+</pre>
+policy_id:1のポリシーがヒットしていることがわかります
+
 ---
 
 ### Category Name 2
