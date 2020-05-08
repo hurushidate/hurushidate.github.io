@@ -23,15 +23,17 @@
 
 <h4>2. 演習用ドキュメント一式をダウンロード</h4>
 	git clone https://github.com/fortinet-solutions-cse/testbeds.git
+	
 	git clone https://github.com/fortinet-solutions-cse/40ansible.git
 
 <h4>3. 各種パッケージのインストール</h4>
  	cd testbeds/
+	
 	./installation.sh
 <p style="color:#9164CC">Generating public/private rsa key pairで対話式でいくつか聞かれるが、全部EnterでOk.</p>
 
 <h4>4. ubuntuをリブート</h4>
- 	sudo reboot
+	sudo reboot
 
 <h4>5. pip3 インストール</h4>
 	sudo apt install -y python3-pip
@@ -41,6 +43,7 @@
 
 <h4>7. PATHを通す</h4>
 	echo "export PATH=$PATH:/home/${USER}/.local/bin" >>.bashrc
+	
 	source ~/.bashrc
 <h4>8. Ansibleバージョン確認</h4>
   	ansible-playbook --version
@@ -59,27 +62,28 @@ ansible-playbook 2.9.6
 <h4>10. fortiosapiのバージョン確認</h4>
 	pip3 freeze | grep fortiosapi
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
-  $ pip3 freeze | grep fortiosapi
-  fortiosapi==1.0.1</pre>
+$ pip3 freeze | grep fortiosapi
+fortiosapi==1.0.1</pre>
 
 <h4>11. kvm(fortios_623.qcow2)をホームディレクトリにアップロード</h4>
 
 <h4>12. fortigate vm起動</h4>
 	cd testbeds/fortigate/
+	
 	./start_fgt621.sh ../../fortios_621.qcow2
 
 <h4>13. vm起動確認</h4>
-  	virsh list
-<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">  
+	virsh list
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ virsh list
  Id    Name                           State
 ----------------------------------------------------
  1     fortigate                      running</pre>
 
 <h4>14. kvmコンソールでログイン</h4>
- 	virsh console fortigate
+	virsh console fortigate
 <p style="color:#9164CC"> Username: admin, Password: なし</p>
-<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">  
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ virsh console fortigate
 Connected to domain fortigate
 Escape character is ^]
@@ -87,7 +91,7 @@ FortiGate-VM64-KVM login: admin
 Password: </pre> 
 
 <h4>15. New Passwordで`admin`を設定</h4>
-<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">  
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 You are forced to change your password, please input a new password.
 New Password:*****
 Confirm Password:*****
@@ -95,7 +99,7 @@ Welcome !  </pre>
 
 <h4>16. cloudinitで流しんだコンフィグ情報を確認</h4>
 	diagnoze debug cloudinit show
-<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">   
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 # diagnose debug cloudinit show
 >> FortiGate-VM64-KVM $  config system interface
 >> FortiGate-VM64-KVM (interface) $    edit "port1"
@@ -239,7 +243,7 @@ CONFIG_CALLS = [
 <h5>2.1	APIログインのためのクッキー情報取得</h5>
 	curl http://192.168.122.40/logincheck -H 'Cache-Control: cache' -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=admin&secretkey=admin&ajax=1' -c cookies
 <h5>2.2	スキーマの取得</h5>
-	curl -b cookies -X GET 'http://192.168.122.40/api/v2/cmdb/router/static?action=schema'<br>
+	curl -b cookies -X GET 'http://192.168.122.40/api/v2/cmdb/router/static?action=schema'
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ curl -b cookies -X GET 'http://192.168.122.40/api/v2/cmdb/router/static?action=schema'
 {
@@ -310,7 +314,7 @@ end</pre>
 <h4>6. プレイブック実行</h4>
 	ansible-playbook fortigate_modify_router_static.yml
 
-<h4>7. プレイブック実行前の確認</h4>
+<h4>7. プレイブック実行後の確認</h4>
 	ssh admin@192.168.122.40 show router static
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ ssh admin@192.168.122.40 show router static
