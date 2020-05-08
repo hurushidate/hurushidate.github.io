@@ -341,6 +341,7 @@ end
 ---
 <h4>1. ライセンスアップロード用のプレイブックを確認</h4>
 	cd ~/40ansible/examples
+<br>
 	more fortigate_upload_license.yml
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ more fortigate_upload_license.yml
@@ -366,12 +367,13 @@ $ more fortigate_upload_license.yml
 </pre>
 	
 <h4>2. プレイブック実行前の確認</h4>
-	ssh admin@192.168.122.40 "get sys status | grep Serial
+	ssh admin@192.168.122.40 "get sys status | grep Serial"
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ ssh admin@192.168.122.40 "get sys status | grep Serial"
 admin@192.168.122.40's password:
 FortiGate-VM64-KVM # Serial-Number: FGVMEV******
-	FGVMEV******はお試し用ライセンス(EValuation)です。
+</pre>
+<p style="color:#9164CC">FGVMEV******はお試し用ライセンス(EValuation)です。</p>
 
 <h4>3. プレイブック実行 - 1st try</h4>
 	ansible-playbook fortigate_upload_license.yml
