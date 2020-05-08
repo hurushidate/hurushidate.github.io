@@ -605,7 +605,7 @@ end
 <h4>4. プレイブック実行</h4>
 	ansible-playbook fortigate_webfilter_add_url.yml
 
-<h4>プレイブック実行後の設定確認</h4>
+<h4>5. プレイブック実行後の設定確認</h4>
 	ssh admin@192.168.122.40  show webfilter urlfilter
 <pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
 $ ssh admin@192.168.122.40  show webfilter urlfilter
