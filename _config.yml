@@ -1,7 +1,7 @@
 logo: "/images/fo_log.jpg?raw=true" # your photo (or logo) here
-title: 簡単レシピシリーズ<br>第1弾　 # website title
+title: 簡単レシピ<br>　 # website title
 description: > # your text below (remove <br> elements if you don't need line breaks)
-  Ansibleを使ってFortiGateを操るためのビギナー向けチュートリアルです。
+  Ansibleを使ってFortiGateを操るためのチュートリアルです。
   <br><br>
   <h4>も・く・じ</h4>
   <a href="#pro">はじめに</a><br>
