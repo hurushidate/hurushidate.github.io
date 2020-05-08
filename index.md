@@ -32,7 +32,7 @@
 <h4>3. 各種パッケージのインストール</h4>
 	cd testbeds/
 	./installation.sh
-<p style="color:#9164CC">Generating public/private rsa key pairで対話式でいくつか聞かれるが、全部EnterでOk.</p>
+<p style="color:#9164CC">SSHの鍵生成ダイアローグがでてきます。すべてEnterで大丈夫です。</p>
 
 <h4>4. ubuntuをリブート</h4>
 	sudo reboot
@@ -829,27 +829,66 @@ end
 ---
 ### <a name="lab6">LAB6: inventoryとhttpapiの活用</a>
 ---
-#### 1.
-  **********<br>
-  **********<br>
-#### 2.
-  **********<br>
-  **********<br>
-#### 3.
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
-  **********<br>
+Inventoryファイル(hostsファイル)を使うことで、複数のFortiGateに対して同じコマンドを実施できます。
+これまでのLABでは、fortiosapiモジュールでAnsibleプレイブックをFortiOSのREST APIに変換してきましたが、ここではAnsible公式モジュールのhttpapiを使用します。
+
+<h4>1. カレントディレクトリにhostsという名前でInventoryファイルを作成</h4>
+	sudo vi hosts
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ sudo vi hosts
+all:
+  children:
+    fortios:
+      hosts:
+        fortios01:
+          ansible_host: 192.168.122.40
+      vars:
+        ansible_user: admin
+        ansible_password: admin
+        ansible_network_os: fortios
+        ansible_connection: httpapi
+        ansible_httpapi_use_ssl: yes
+        ansible_httpapi_validate_certs: no
+        ansible_python_interpreter: /usr/bin/python3
+        vdom: root
+</pre>
+
+<h4>2. カレントディクトリのfortigate_create_system_api_user.ymlを編集</h4>
+LAB5の最後に作成したAPIユーザを削除するために、<code>state: absent</code>とします。
+	sudo vi fortigate_create_system_api_user.yml
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ sudo vi fortigate_create_system_api_user.yml
+- hosts: fortios
+  tasks:
+  - name: Configure API users.
+    fortios_system_api_user:
+      host:  "{{ ansible_host }}"
+      username: "{{ ansible_user }}"
+      password: "{{ ansible_password }}"
+      vdom:  "{{ vdom }}"
+      https: "True"
+      ssl_verify: "False"
+      state: "absent"
+      system_api_user:
+        accprofile: "super_admin"
+        name: "AnsibleTestApiUser"
+        trusthost:
+         -
+            id:  "1"
+            ipv4-trusthost: "192.168.0.0 255.255.0.0"
+            type: "ipv4-trusthost"
+</pre>
+
+<h4>3. プレイブック実行</h4>
+	ansible-playbook -i hosts fortigate_create_system_api_user.yml
+
+<h4>4. プレイブック実行後の確認</h4>
+	ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
+<pre style="font-family:Courier New, Courier, monospace; color:#FFFFFF; background: #000000;">
+$ ssh admin@192.168.122.40 "show sys api-user | grep -f Ansible"
+admin@192.168.122.40's password:
+FGVM04TM20000646 #
+</pre>
   
 <br><br>
 <a name="lab7"/>
