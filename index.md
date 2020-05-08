@@ -1,5 +1,5 @@
 ## AnsibleでFortiGateを動かしてみよう
-
+<br><br>
 <a name="pro"/>
 
 ---
@@ -219,7 +219,6 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</pre>
 
 <br><br>
-
 <a name="lab2"/>
 
 ---
@@ -679,6 +678,7 @@ end
   
 
 <br><br>
+<a name="lab5"/>
 
 ---
 ### <a name="lab5">LAB5: Rolesの活用</a>
@@ -824,6 +824,7 @@ end
 
 
 <br><br>
+<a name="lab6"/>
 
 ---
 ### <a name="lab6">LAB6: inventoryとhttpapiの活用</a>
@@ -851,6 +852,7 @@ end
   **********<br>
   
 <br><br>
+<a name="lab7"/>
 
 ---
 ### <a name="lab7">LAB7: ファイアウォールポリシーのルックアップ</a>
