@@ -3,7 +3,7 @@
 <a name="pro"/>
 
 ---
-### 序
+### はじめに
 ---
 <h4>LAB環境</h4>
  ubuntu server 18.04<br>
