@@ -1,7 +1,7 @@
 <br><br>
 <a name="pro"/>
+# UNDERCONSTRUCTION
 
-<pre> "%7b%7b user %7d%7d" </pre>
 
 ---
 ### はじめに
